@@ -1,0 +1,206 @@
+.dateTimebox {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    input {
+        height: auto;
+        border: 1px solid #efefef;
+        outline: none;
+        width: 100%;
+    }
+}
+
+
+// owl datepicker custom styles
+
+/* Container */
+.owl-dt-container {
+    background: var(--bg-color) !important;
+    color: var(--picker-text);
+    border-radius: 10px;
+    border: 1px solid var(--picker-border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-family: inherit;
+}
+
+/* Header (Month + Arrows) */
+.owl-dt-calendar-header {
+    background: var(--bg-color) !important;
+    color: var(--header-text-color);
+    border-bottom: 1px solid var(--picker-border);
+}
+
+.owl-dt-calendar-control {
+    color: var(--picker-text);
+}
+
+.owl-dt-control-button {
+    color: var(--picker-text);
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.owl-dt-control-button:hover {
+    background: var(--picker-hover);
+}
+
+/* Week Days */
+.owl-dt-calendar-table thead th {
+    color: var(--card-subtle);
+    font-weight: 500;
+}
+
+/* Dates */
+.owl-dt-calendar-cell {
+    color: var(--picker-text);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* Hover */
+.owl-dt-calendar-cell:hover:not(.owl-dt-calendar-cell-selected) {
+    background: var(--picker-hover);
+}
+
+/* Selected Date */
+.owl-dt-calendar-cell-selected {
+    background: var(--picker-accent) !important;
+    color: #fff !important;
+    border-radius: 50%;
+}
+
+/* Date numbers color fix */
+.owl-dt-calendar-cell-content {
+    color: var(--text-color) !important;
+}
+
+/* Today Highlight */
+.owl-dt-calendar-cell-today:not(.owl-dt-calendar-cell-selected) {
+    border: 1px solid var(--picker-accent);
+    border-radius: 50%;
+}
+
+/* Disabled Dates */
+.owl-dt-calendar-cell-disabled {
+    color: var(--card-subtle);
+    opacity: 0.4;
+}
+
+/* Time Picker */
+.owl-dt-timer {
+    border-top: 1px solid var(--picker-border);
+}
+
+.owl-dt-timer-content {
+    color: var(--picker-text);
+}
+
+/* Time Box */
+.owl-dt-timer-input {
+    background: var(--input-enable-bg);
+    border: 1px solid var(--input-enable-border);
+    color: var(--picker-text);
+    border-radius: 6px;
+    padding: 4px;
+}
+
+/* Buttons (Cancel / Set) */
+.owl-dt-container-buttons {
+    border-top: 1px solid var(--picker-border);
+    padding: 8px;
+}
+
+.owl-dt-control-button-content {
+    color: var(--picker-accent);
+    font-weight: 500;
+}
+
+/* Remove hover effect from Cancel & Set buttons */
+.owl-dt-control-button:hover {
+    background: transparent !important;
+}
+
+.owl-dt-control-button:hover .owl-dt-control-button-content {
+    text-decoration: underline !important;
+    color: var(--picker-accent);
+    /* same as normal */
+}
+
+/* Overlay Fix */
+.cdk-overlay-pane .owl-dt-container {
+    margin-top: 6px;
+}
+
+/* Full datepicker background fix */
+.owl-dt-container,
+.owl-dt-calendar,
+.owl-dt-container-info,
+.owl-dt-calendar-content,
+.owl-dt-timer,
+.owl-dt-container-buttons {
+    background: var(--bg-color) !important;
+}
+
+.owl-dt-control-button-arrow svg {
+    fill: var(--picker-accent) !important;
+    width: 12px !important;
+    height: 12px !important;
+}
+
+/* Thoda left margin */
+.owl-dt-control-button-arrow {
+    margin-left: 4px !important;
+}
+
+/* From / To label + value text color */
+.owl-dt-container-info-label,
+.owl-dt-container-info-value {
+    color: var(--text-color) !important;
+}
+
+/* Range in-between cells */
+.owl-dt-calendar-cell-in-range {
+    background: rgba(253, 159, 53, 0.18) !important;
+    border-radius: 0 !important;
+}
+
+.owl-dt-calendar-cell-in-range .owl-dt-calendar-cell-content {
+    background: transparent !important;
+    color: var(--text-color) !important;
+}
+
+/* Range start */
+.owl-dt-calendar-cell-range-from .owl-dt-calendar-cell-content {
+    background: var(--picker-accent) !important;
+    color: #fff !important;
+    border-radius: 50% !important;
+}
+
+/* Range end */
+.owl-dt-calendar-cell-range-to .owl-dt-calendar-cell-content {
+    background: var(--picker-accent) !important;
+    color: #fff !important;
+    border-radius: 50% !important;
+}
+
+/* Start cell ka td — right half orange */
+.owl-dt-calendar-cell-range-from {
+    background: linear-gradient(to right, transparent 50%, rgba(253, 159, 53, 0.18) 50%) !important;
+}
+
+/* End cell ka td — left half orange */
+.owl-dt-calendar-cell-range-to {
+    background: linear-gradient(to left, transparent 50%, rgba(253, 159, 53, 0.18) 50%) !important;
+}
+
+/* Agar start aur end same din ho */
+.owl-dt-calendar-cell-range-from.owl-dt-calendar-cell-range-to {
+    background: transparent !important;
+}
+
+.owl-dt-calendar-cell-selected .owl-dt-calendar-cell-content,
+.owl-dt-calendar-cell-range-from .owl-dt-calendar-cell-content,
+.owl-dt-calendar-cell-range-to .owl-dt-calendar-cell-content {
+    color: #000000 !important;
+}
