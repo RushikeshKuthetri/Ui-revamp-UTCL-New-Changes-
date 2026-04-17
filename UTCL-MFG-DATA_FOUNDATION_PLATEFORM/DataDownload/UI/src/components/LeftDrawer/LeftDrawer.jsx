@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LuNetwork } from "react-icons/lu";
 import { FaDownload, FaBars, FaTimes } from "react-icons/fa";
@@ -123,10 +123,10 @@ const menuItems = [
             },
         ],
     },
-       {
+    {
         name: "Help",
         icon: IoHelpCircleOutline,
-           path: "/mimics/help",
+        path: "/mimics/help",
         moduleKey: "Mimics",
         openInNewTab: false
     },
@@ -153,14 +153,14 @@ const menuItems = [
         ],
     }
 ];
- 
+
 // ── Tree connector dimensions ─────────────────────────────────────
 const SPINE_X = 8;    // x-position of the vertical part of the L
-const ITEM_H  = 32;   // height of each item row
-const LINE_W  = 1.5;
-const RADIUS  = 10;    // corner radius of the L-curve
-const SVG_W   = 20;   // width of the connector SVG
- 
+const ITEM_H = 32;   // height of each item row
+const LINE_W = 1.5;
+const RADIUS = 10;    // corner radius of the L-curve
+const SVG_W = 20;   // width of the connector SVG
+
 /**
  * TreeConnector
  *
@@ -168,9 +168,9 @@ const SVG_W   = 20;   // width of the connector SVG
  * isLast = false → T-junction (full vertical spine + horizontal branch at midY)
  */
 function TreeConnector({ lineColor, isLast }) {
-    const midY        = ITEM_H / 2;
+    const midY = ITEM_H / 2;
     const curveStartY = midY - RADIUS;
- 
+
     return (
         <svg
             width={SVG_W}
@@ -221,6 +221,70 @@ function TreeConnector({ lineColor, isLast }) {
     );
 }
 
+function Tooltip({ label, childItems, visible, anchorRef }) {
+    if (!visible) return null;
+ 
+    const rect = anchorRef?.current?.getBoundingClientRect();
+    if (!rect) return null;
+    const tooltipTop = (rect.top - 65) + window.scrollY + rect.height / 2;
+    const tooltipLeft = rect.right + 10;
+ 
+    return (
+        <div
+            style={{
+                position: "fixed",
+                left: tooltipLeft,
+                top: tooltipTop,
+                transform: "translateY(-50%)",   // ✅ yahi center karta hai
+                zIndex: 99999,
+                pointerEvents: "none",
+            }}
+        >
+            {/* Arrow pointing left */}
+            <div
+                // style={{
+                //     position: "absolute",
+                //     right: "100%",
+                //     top: "50%",
+                //     transform: "translateY(-50%)",
+                //     width: 0,
+                //     height: 0,
+                //     borderTop: "6px solid transparent",
+                //     borderBottom: "6px solid transparent",
+                //     borderRight: "6px solid var(--bg-leftdrawer, #fff)",
+                //     filter: "drop-shadow(-1px 0 0 rgba(0,0,0,0.08))",
+                // }}
+            />
+            <div
+                className="bg-[var(--bg-leftdrawer)] !border !border-[color:var(--left-drawer-footer-border)] rounded-xl shadow-md "
+            // style={{ minWidth: 125 }}
+            >
+                {/* Title */}
+                <div className="px-2.5 py-2 text-sm font-medium text-[var(--text-color)] whitespace-nowrap overflow-hidden text-ellipsis">
+                    {label}
+                </div>
+ 
+                {/* Children list */}
+                {/* {childItems?.length > 0 && (
+                    <>
+                        <div className="mx-3 border-t border-[color:var(--left-drawer-footer-border)]" />
+                        <div className="px-3 py-2 flex flex-col gap-1">
+                            {childItems.map((child, i) => (
+                                <span
+                                    key={i}
+                                    className="text-xs text-[var(--leftdrawer-text)] opacity-75 whitespace-nowrap overflow-hidden text-ellipsis"
+                                >
+                                    {child.name}
+                                </span>
+                            ))}
+                        </div>
+                    </>
+                )} */}
+            </div>
+        </div>
+    );
+}
+
 export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
     const [theme, setTheme] = useState("light");
     const [mounted, setMounted] = useState(false);
@@ -232,12 +296,16 @@ export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
             return {};
         }
     });
+     const itemRefs = useRef({});
+    const menuContainerRef = useRef(null);
+    const currentPath = window.location.pathname;
     const { token, setToken } = useToken();
     const mobileOpen = open;
     const setMobileOpen = setOpen;
     const modules = JSON.parse(localStorage.getItem("modules")) || [];
     const pathname = useLocation();
     const navigate = useNavigate();
+    const [hoveredItem, setHoveredItem] = useState(null);
 
     // ── line color based on theme ─────────────────────────────────
     const lineColor = theme === "dark" ? "#7E8383" : "#9FACAC";
@@ -255,6 +323,31 @@ export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
         }
     }, []);
 
+      const scrollToItem = (name, align = "end") => {
+        const el = itemRefs.current[name];
+        const container = menuContainerRef.current;
+ 
+        if (!el || !container) return;
+ 
+        const containerRect = container.getBoundingClientRect();
+        const elRect = el.getBoundingClientRect();
+        const relativeTop = elRect.top - containerRect.top + container.scrollTop;
+ 
+        let targetTop;
+        if (align === "center") {
+            targetTop = relativeTop - container.clientHeight / 2 + elRect.height / 2;
+        } else if (align === "start") {
+            targetTop = relativeTop - 120;
+        } else {
+            targetTop = relativeTop - container.clientHeight + elRect.height + 24;
+        }
+ 
+        container.scrollTo({
+            top: Math.max(0, targetTop),
+            behavior: "smooth",
+        });
+    };
+
     if (!mounted) return null;
 
     const toggleTheme = () => {
@@ -267,7 +360,7 @@ export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
     const toggleDropdown = (key) => {
         setOpenDropdowns((prev) => ({ ...prev, [key]: !prev[key] }));
     };
- 
+
     const isDropdownOpen = (key) => !!openDropdowns[key];
 
 
@@ -347,7 +440,7 @@ export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
                     onClick={() => setMobileOpen(false)}
                 />
             )}
- 
+
             {/* SIDEBAR */}
             <div className={`
                 fixed top-18 left-0 z-40 mt-2
@@ -358,137 +451,185 @@ export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
                 shadow-left-drawer-light
                 dark:shadow-left-drawer-dark
                 transition-all duration-300
-                ${collapsed ? "lg:w-20" : "lg:w-60"}
+                ${collapsed ? "lg:w-20 overflow-visible" : "lg:w-60 overflow-hidden"}
                 w-60
                 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
                 lg:translate-x-0
             `}>
- 
+
                 {/* MOBILE CLOSE BUTTON */}
                 <div className="lg:hidden flex justify-end pt-3 pr-3 -mb-2">
                     <button onClick={() => setMobileOpen(false)}>
                         <FaTimes size={20} className="text-[var(--text-color)]" />
                     </button>
                 </div>
- 
-                {/* MENU */}
-                <div className={`flex-1 overflow-y-auto flex flex-col gap-1 mt-2 ${collapsed ? "px-1" : "px-3"}`}>
-                    {filteredMenu.map((item, index) => {
-                        const Icon = item.icon;
-                        const hasChildren = item.hasDropdown && item.children?.length > 0;
-                        const dropdownOpen = isDropdownOpen(item.name);
- 
-                        return (
-                            <div key={index}>
- 
-                                {/* ── PARENT ITEM ── */}
-                                <div
-                                    className={`flex items-center py-2 px-3 rounded-xl cursor-pointer
-                                        ${collapsed ? "justify-center" : "gap-4"}
-                                         text-[var(--leftdrawer-text)]
-                                        hover:bg-[var(--left-drawer-active-tab)]
-                                        hover:text-[#111111]`}
-                                    onClick={() => {
-                                        if (hasChildren) toggleDropdown(item.name);
-                                        else handleNavigation(item);
-                                    }}
-                                >
-                                    <Icon size={22} />
-                                    {!collapsed && (
-                                        <>
-                                            <span className="text-sm font-medium flex-1">{item.name}</span>
-                                            {hasChildren && (
-                                                <span className="text-xs">
-                                                    {dropdownOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-                                                </span>
-                                            )}
-                                        </>
-                                    )}
-                                </div>
- 
-                                {/* ── LEVEL 1 CHILDREN ── */}
-                                {hasChildren && dropdownOpen && !collapsed && (
-                                    <div className="ml-[34px] flex flex-col">
-                                        {item.children.map((child, childIndex) => {
-                                            const hasNested = child.hasDropdown && child.children?.length > 0;
-                                            const nestedKey = `${item.name}_${child.name}`;
-                                            const nestedOpen = isDropdownOpen(nestedKey);
-                                            const isLast = childIndex === item.children.length - 1;
- 
-                                            return (
-                                                <div key={childIndex} className="flex flex-col">
- 
-                                                    {/* CHILD ROW */}
-                                                    <div
-                                                        className="flex items-center cursor-pointer"
-                                                        style={{ height: ITEM_H }}
-                                                        onClick={() => {
-                                                            if (hasNested) toggleDropdown(nestedKey);
-                                                            else handleNavigation(child);
-                                                        }}
-                                                    >
-                                                       <TreeConnector lineColor={lineColor} isLast={isLast} />
- 
-                                                        <div className={`flex-1 flex items-center py-[6.4px] px-2 rounded-lg transition-all text-sm min-w-0 gap-1
-                                                            text-[var(--text-color)]
-                                                            hover:bg-[var(--left-drawer-active-tab)]
-                                                            hover:text-[#111111]`}>
-                                                            <span className="flex-1 truncate">{child.name}</span>
-                                                            {hasNested && (
-                                                                <span className="ml-auto shrink-0">
-                                                                    {nestedOpen ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                    </div>
- 
-                                                    {/* ── LEVEL 2 CHILDREN ── */}
-                                                   {/* ── LEVEL 2 CHILDREN ── */}
-{hasNested && nestedOpen && (
-    <div className="flex flex-col relative" style={{ marginLeft: SVG_W }}>
-        {/* Connecting line sirf tab jab isLast FALSE ho */}
-        {!isLast && (
-            <div
-                style={{
-                    position: "absolute",
-                    left: -SVG_W + SPINE_X,
-                    top: 0,
-                    bottom: 0,
-                    width: LINE_W,
-                    backgroundColor: lineColor,
-                }}
-            />
-        )}
-        {child.children.map((grandchild, gcIndex) => {
-            const gcIsLast = gcIndex === child.children.length - 1;
-            return (
-                <div
-                    key={gcIndex}
-                    className="flex items-center cursor-pointer"
-                    style={{ height: ITEM_H }}
-                    onClick={() => handleNavigation(grandchild)}
-                >
-                    <TreeConnector lineColor={lineColor} isLast={gcIsLast} />
-                    <div className={`flex-1 py-[6.4px] px-2 rounded-lg transition-all text-sm truncate
-                        text-[var(--text-color)]
-                        hover:bg-[var(--left-drawer-active-tab)]
-                        hover:text-[#111111]`}>
-                        {grandchild.name}
-                    </div>
-                </div>
-            );
-        })}
-    </div>
-)}
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                )}
 
-                            </div>
-                        );
-                    })}
+                {/* MENU */}
+               <div className={`flex-1 flex flex-col gap-1 mt-2 min-h-0 ${collapsed ? "px-1" : "px-3"}`}>
+                    <div ref={menuContainerRef} className="flex-1 overflow-y-auto flex flex-col gap-1">
+                        {filteredMenu.map((item, index) => {
+                            const Icon = item.icon;
+                            const hasChildren = item.hasDropdown && item.children?.length > 0;
+                            const dropdownOpen = isDropdownOpen(item.name);
+                            // Paths that have their own dedicated nav items (should NOT activate Mimics)
+                        const MIMICS_EXCLUDED_SUBPATHS = [
+                            "/datadownload/dashboard",
+                        ];
+
+                        const isActive =
+                            item.path &&
+                            (currentPath === item.path ||
+                                (item.path === "/datadownload" &&
+                                    currentPath.startsWith("/datadownload") &&
+                                    !MIMICS_EXCLUDED_SUBPATHS.some(p => currentPath.startsWith(p))) ||
+                                (item.path === "/datadownload" && currentPath === "/datadownload/dashboard")
+                            );
+ 
+ 
+                            return (
+                                <div key={index}>
+ 
+                                    {/* ── PARENT ITEM ── */}
+                                    <div
+                                        className="relative"   // 👈 needed for tooltip absolute positioning
+ 
+                                    >
+                                        <div
+                                            ref={(el) => (itemRefs.current[item.name] = el)}
+                                            onMouseEnter={() => setHoveredItem(item.name)}
+                                            onMouseLeave={() => setHoveredItem(null)}
+                                             className={`flex items-center py-2 px-3 rounded-xl cursor-pointer transition-all duration-200
+    ${collapsed ? "justify-center" : "gap-4"}
+    ${isActive
+                                            ? "bg-[var(--left-drawer-active-tab)] text-black font-semibold shadow-md"
+                                            : "text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-black"
+                                        }`}
+                                            // onClick={() => {
+                                            //     if (hasChildren) toggleDropdown(item.name);
+                                            //     else handleNavigation(item);
+                                            // }}
+                                            onClick={() => {
+                                                if (hasChildren) {
+                                                    if (collapsed) {
+                                                        setCollapsed();
+                                                    }
+                                                    toggleDropdown(item.name);
+                                                } else {
+                                                    handleNavigation(item);
+                                                }
+                                            }}
+ 
+                                        >
+                                            <Icon size={22} />
+                                            {!collapsed && (
+                                                <>
+                                                    <span className="text-sm font-medium flex-1">{item.name}</span>
+                                                    {hasChildren && (
+                                                        <span className="text-xs">
+                                                            {dropdownOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+                                                        </span>
+                                                    )}
+                                                </>
+                                            )}
+                                        </div>
+                                        <Tooltip
+                                            label={item.name}
+                                            childItems={hasChildren ? item.children : null}
+                                            visible={collapsed && hoveredItem === item.name}
+                                            anchorRef={{ current: itemRefs.current[item.name] }}
+                                        />
+                                    </div>
+ 
+ 
+                                    {/* ── LEVEL 1 CHILDREN ── */}
+                                    {hasChildren && dropdownOpen && !collapsed && (
+                                        <div className="ml-[34px] flex flex-col">
+                                            {item.children.map((child, childIndex) => {
+                                                const hasNested = child.hasDropdown && child.children?.length > 0;
+                                                const nestedKey = `${item.name}_${child.name}`;
+                                                const nestedOpen = isDropdownOpen(nestedKey);
+                                                const isLast = childIndex === item.children.length - 1;
+                                                      const isChildActive = currentPath === child.path;
+ 
+                                                return (
+                                                    <div key={childIndex} className="flex flex-col">
+ 
+                                                        {/* CHILD ROW */}
+                                                        <div
+                                                            className="flex items-center cursor-pointer"
+                                                            style={{ height: ITEM_H }}
+                                                            onClick={() => {
+                                                                if (hasNested) toggleDropdown(nestedKey);
+                                                                else handleNavigation(child);
+                                                            }}
+                                                        >
+                                                            <TreeConnector lineColor={lineColor} isLast={isLast} />
+ 
+                                                            <div className={`flex-1 flex items-center py-[6.4px] px-2 rounded-lg transition-all text-sm min-w-0 gap-1
+                                                                         ${isChildActive
+                                                                ? "bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold"
+                                                                : "text-[var(--text-color)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]"
+                                                            }`}>
+                                                                <span className="flex-1 truncate">{child.name}</span>
+                                                                {hasNested && (
+                                                                    <span className="ml-auto shrink-0">
+                                                                        {nestedOpen ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        </div>
+ 
+                                                        {/* ── LEVEL 2 CHILDREN ── */}
+                                                        {/* ── LEVEL 2 CHILDREN ── */}
+                                                        {hasNested && nestedOpen && (
+                                                            <div className="flex flex-col relative" style={{ marginLeft: SVG_W }}>
+                                                                {/* Connecting line sirf tab jab isLast FALSE ho */}
+                                                                {!isLast && (
+                                                                    <div
+                                                                        style={{
+                                                                            position: "absolute",
+                                                                            left: -SVG_W + SPINE_X,
+                                                                            top: 0,
+                                                                            bottom: 0,
+                                                                            width: LINE_W,
+                                                                            backgroundColor: lineColor,
+                                                                        }}
+                                                                    />
+                                                                )}
+                                                                {child.children.map((grandchild, gcIndex) => {
+                                                                    const gcIsLast = gcIndex === child.children.length - 1;
+                                                                    const isGrandchildActive = currentPath === grandchild.path;
+                                                                    return (
+                                                                        <div
+                                                                            key={gcIndex}
+                                                                            className="flex items-center cursor-pointer"
+                                                                            style={{ height: ITEM_H }}
+                                                                            onClick={() => handleNavigation(grandchild)}
+                                                                        >
+                                                                            <TreeConnector lineColor={lineColor} isLast={gcIsLast} />
+                                                                               <div className={`flex-1 py-[6.4px] px-2 rounded-lg transition-all text-sm truncate
+                                                                                ${isGrandchildActive
+                                                                                ? "bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold"
+                                                                                : "text-[var(--text-color)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]"
+                                                                            }`}>
+                                                                                {grandchild.name}
+                                                                            </div>
+                                                                        </div>
+                                                                    );
+                                                                })}
+                                                            </div>
+                                                        )}
+ 
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+ 
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
 
                 {/* FOOTER */}

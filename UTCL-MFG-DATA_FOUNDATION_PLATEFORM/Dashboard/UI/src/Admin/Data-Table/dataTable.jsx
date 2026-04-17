@@ -923,10 +923,10 @@ const DataTable = () => {
         toggle={closeModal}
         backdrop="static"
         returnFocusAfterClose
-        contentClassName="!w-[800px] !max-w-[95vw] !p-9 !max-h-[85vh] !overflow-y-auto !bg-[var(--card-bg)] !rounded-xl !shadow-xl !border !border-[var(--form-border)]"
+        contentClassName="!max-w-[95vw] !py-2  !max-h-[80vh]  !bg-[var(--card-bg)] !rounded-xl !shadow-xl !border !border-[var(--form-border)]"
       >
-        <ModalHeader toggle={closeModal} className="!p-0 !border-none">
-          <div className="flex justify-between items-center w-[400px] mb-5">
+        <ModalHeader toggle={closeModal} className="!p-0 !border-none ml-3">
+          <div className="flex justify-between items-center w-[450px]  ">
 
             <span className="text-[18px] font-semibold text-[var(--text-color)]">
               {updateFlag ? "Update User Information" : "User Information"}
@@ -935,7 +935,7 @@ const DataTable = () => {
             <button
               type="button"
               onClick={closeModal}
-              className="cursor-pointer bg-transparent border-none text-[24px] p-0 text-[var(--text-color)] opacity-60"
+              className="cursor-pointer bg-transparent border-none text-[24px] p-0  text-[var(--text-color)] opacity-60"
             >
               <FiX />
             </button>
@@ -956,7 +956,7 @@ const DataTable = () => {
                     type="text"
                     name="username"
                     value={formvalues.username}
-                    className={`w-full p-1 rounded-lg border border-[var(--input-enable-border)] text-[var(--picker-text)] focus:outline-none focus:ring-[0.2px] focus:ring-[#767575] placeholder:text-sm placeholder:text-[var(--search-placeholder)] pl-2 bg-[var(--input-enable-bg)] transition-all duration-200`}
+                    className={`w-full p-1 py-2 rounded-lg !text-[13px] !border !border-[var(--input-enable-border)] text-[var(--picker-text)] focus:outline-none focus:ring-[0.2px] focus:ring-[#767575] placeholder:text-[12px] placeholder:text-[var(--search-placeholder)] pl-2 bg-[var(--input-enable-bg)] transition-all duration-200`}
                     placeholder="Enter User Name"
                     onChange={handleChangeInput}
                   />
@@ -973,7 +973,7 @@ const DataTable = () => {
                     name="userId"
                     value={formvalues.userId}
                     disabled={updateFlag}
-                    className={`w-full p-1 rounded-lg border border-[var(--input-enable-border)] text-[var(--picker-text)] focus:outline-none focus:ring-[0.2px] focus:ring-[#767575] placeholder:text-sm placeholder:text-[var(--search-placeholder)] pl-2 bg-[var(--input-enable-bg)] transition-all duration-200`}
+                    className={`w-full p-1 py-2 rounded-lg !text-[13px] !border !border-[var(--input-enable-border)] text-[var(--picker-text)] focus:outline-none focus:ring-[0.2px] focus:ring-[#767575] placeholder:text-[12px] placeholder:text-[var(--search-placeholder)] pl-2 bg-[var(--input-enable-bg)] transition-all duration-200`}
                     placeholder="Enter User ID"
                     onChange={handleChangeInput}
                   />
@@ -993,7 +993,7 @@ const DataTable = () => {
                       type="number"
                       name="Contact_No"
                       value={formvalues.Contact_No === 0 ? "" : formvalues.Contact_No}
-                      className={`w-full p-1 rounded-lg border border-[var(--input-enable-border)] text-[var(--picker-text)] focus:outline-none focus:ring-[0.2px] focus:ring-[#767575] placeholder:text-sm placeholder:text-[var(--search-placeholder)] pl-2 bg-[var(--input-enable-bg)] transition-all duration-200`}
+                      className={`w-full p-1 py-2 rounded-lg !text-[13px] !border !border-[var(--input-enable-border)] text-[var(--picker-text)] focus:outline-none focus:ring-[0.2px] focus:ring-[#767575] placeholder:text-[12px] placeholder:text-[var(--search-placeholder)] pl-2 bg-[var(--input-enable-bg)] transition-all duration-200`}
                       placeholder="Enter Contact No"
                       onChange={handleChangeInput}
                     />
@@ -1009,7 +1009,7 @@ const DataTable = () => {
                       type="number"
                       name="SMS_Limit"
                       value={formvalues.SMS_Limit}
-                      className={`w-full p-1 rounded-lg border border-[var(--input-enable-border)] text-[var(--picker-text)] focus:outline-none focus:ring-[0.2px] focus:ring-[#767575] placeholder:text-sm placeholder:text-[var(--search-placeholder)] pl-2 bg-[var(--input-enable-bg)] transition-all duration-200`}
+                      className={`w-full p-1 py-2 rounded-lg !text-[13px] !border !border-[var(--input-enable-border)] text-[var(--picker-text)] focus:outline-none focus:ring-[0.2px] focus:ring-[#767575] placeholder:text-[12px] placeholder:text-[var(--search-placeholder)] pl-2 bg-[var(--input-enable-bg)] transition-all duration-200`}
                       placeholder="Enter SMS Limit"
                       onChange={handleChangeInput}
                     />
@@ -1109,7 +1109,7 @@ const DataTable = () => {
               </div>
 
               {/* Row 5 */}
-              <div style={{ marginBottom: "35px" }}>
+              <div style={{ marginBottom: "10px" }}>
                 <label style={{ display: "block", marginBottom: "8px", fontWeight: "500", fontSize: "14px", color: "var(--text-color)" }}>
                   Plant Name</label>
                 <Select
@@ -1136,7 +1136,7 @@ const DataTable = () => {
                   type="submit"
                   disabled={submitLoader}
                   onClick={(e) => submitForm(e)}
-                  className="px-4 py-1  rounded-md border border-[var(--button-border)] bg-[var(--submit-button-bg)] hover:bg-[var(--submit-button-hover-bg)] text-[#111111] font-medium transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed active:scale-95"                >
+                  className="px-3 py-0.5 text-sm rounded-md !border !border-[var(--button-border)] bg-[var(--submit-button-bg)] hover:bg-[var(--submit-button-hover-bg)] text-[#111111] font-medium transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed active:scale-95"                >
                   {submitLoader ? "Submitting..." : updateFlag ? "Update" : "Add"}
                 </button>
               </div>

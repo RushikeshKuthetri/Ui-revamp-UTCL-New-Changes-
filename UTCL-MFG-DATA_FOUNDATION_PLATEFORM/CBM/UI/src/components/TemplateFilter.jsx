@@ -2725,6 +2725,58 @@ import { accessLogApi } from "../utils/AccessLogApi";
 import { MdClose } from "react-icons/md";
 import Highlighter from "react-highlight-words";
 import { ScreenLoader } from "./Loader/Loader";
+
+function Field({ label, required, children, className = "" }) {
+  return (
+    <div className={`flex flex-col gap-1 ${className}`}>
+      <label className="text-xs font-semibold text-[var(--text-color)] whitespace-nowrap">
+        {label}
+        {required && <span className="text-red-500 ml-0.5">*</span>}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+function TextInput({ name, placeholder, value, onChange }) {
+  return (
+    <input
+      name={name}
+      placeholder={placeholder}
+      type="text"
+      value={value}
+      onChange={onChange}
+      className="
+      w-full rounded-lg px-2 py-1.5 text-sm
+      bg-[var(--input-enable-bg)] !border !border-[var(--input-enable-border)]
+      text-[var(--text-color)] placeholder:text-[var(--search-placeholder)]
+      focus:outline-none focus:border-[var(--input-onhover-border)]
+      focus:ring-1 focus:ring-[var(--input-onhover-border)] transition-colors
+    "
+    />
+  );
+}
+
+function NumInput({ name, placeholder, value, onChange }) {
+  return (
+    <input
+      name={name}
+      placeholder={placeholder}
+      type="number"
+      min={0}
+      value={value}
+      onChange={onChange}
+      className="
+      w-full rounded-lg px-2 py-1.5 text-sm
+      bg-[var(--input-enable-bg)] !border !border-[var(--input-enable-border)]
+      text-[var(--text-color)] placeholder:text-[var(--search-placeholder)]
+      focus:outline-none focus:!border-[var(--input-onhover-border)]
+      focus:ring-1 focus:ring-[var(--input-onhover-border)] transition-colors mb-2
+    "
+    />
+  );
+}
+
 export const TemplateFilter = () => {
   const loader = (
     // <Loader
@@ -3976,7 +4028,7 @@ export const TemplateFilter = () => {
         {/* HEADERS */}
         {Object.keys(parameterList).length > 0 && (
           <div className="!border-b !border-[var(--form-border)] pb-3">
-            <div className="grid grid-cols-2 font-semibold text-[15px] text-[var(--text-color)]">
+            <div className="grid grid-cols-2 font-semibold text-[13px] text-[var(--text-color)]">
               <div>Cyclone</div>
               <div>Kiln</div>
             </div>
@@ -3997,7 +4049,7 @@ export const TemplateFilter = () => {
                 {/* CYCLONE SIDE */}
                 <div className="space-y-3">
                   <div className="grid grid-cols-[60px_1fr_1fr] gap-4 items-center">
-                    <div className="font-medium text-[var(--text-color)]">
+                    <div className="font-medium text-[13px] text-[var(--text-color)]">
                       {val}
                     </div>
 
@@ -4042,7 +4094,7 @@ export const TemplateFilter = () => {
                 {/* KILN SIDE */}
                 <div className="space-y-3">
                   <div className="grid grid-cols-[60px_1fr_1fr] gap-4 items-center">
-                    <div className="font-medium text-[var(--text-color)]">
+                    <div className="font-mediumtext text-[13px] text-[var(--text-color)]">
                       {klinKey}
                     </div>
 
@@ -4852,46 +4904,6 @@ export const TemplateFilter = () => {
   // Drop-in replacement — uses Tailwind only, no Bootstrap d-flex classes.
   // CSS variables from globals.css are preserved via Tailwind's arbitrary-value syntax.
 
-  /* ─────────────────────────────────────────────
-     Helper: labelled field wrapper
-  ───────────────────────────────────────────── */
-  function Field({ label, required, children }) {
-    return (
-      <div className="flex flex-col gap-1">
-        <label className="text-xs font-medium text-[var(--text-color)] whitespace-nowrap">
-          {label}
-          {required && <span className="text-red-500 ml-0.5">*</span>}
-        </label>
-        {children}
-      </div>
-    );
-  }
-
-  /* ─────────────────────────────────────────────
-     Helper: numeric input with consistent styling
-  ───────────────────────────────────────────── */
-  function NumInput({ name, placeholder, value, onChange }) {
-    return (
-      <input
-        name={name}
-        placeholder={placeholder}
-        type="number"
-        min={0}
-        value={value}
-        onChange={onChange}
-        className="
-        w-full rounded-lg px-2 py-1.5 text-sm
-        bg-[var(--input-enable-bg)]
-        !border !border-[var(--input-enable-border)]
-        text-[var(--text-color)]
-        placeholder:text-[var(--search-placeholder)]
-        focus:outline-none focus:border-[var(--input-onhover-border)]
-        focus:ring-1 focus:ring-[var(--input-onhover-border)]
-        transition-colors
-      "
-      />
-    );
-  }
 
   const TrendParameterCard = (val) => {
     return (
@@ -4970,8 +4982,7 @@ export const TemplateFilter = () => {
                   setParameterList(Temp);
                 }}
                 options={AlertOptionsList}
-                className="basic-multi-select"
-                classNamePrefix="select"
+                  styles={customStyles}
               />
             </div>
           </div>
@@ -5045,7 +5056,9 @@ export const TemplateFilter = () => {
                           value={parameterList[val].LowLow}
                           onChange={(e) => {
                             const Temp = { ...parameterList };
+                           
                             Temp[e.target.name].LowLow = e.target.value;
+                             console.log(Temp)
                             setParameterList(Temp);
                           }}
                         />
@@ -5807,62 +5820,6 @@ export const TemplateFilter = () => {
   // CustomParameterCard.jsx
   // Tailwind-only, no Bootstrap. CSS variables from globals.css are used via arbitrary values.
 
-  /* ─── Shared helpers ─────────────────────────────────────────── */
-
-  /** Wraps a label + input in a flex-col */
-  /** Wraps a label + input in a flex-col */
-  function Field({ label, required, children, className = "" }) {
-    return (
-      <div className={`flex flex-col gap-1 ${className}`}>
-        <label className="text-xs font-semibold text-[var(--text-color)] whitespace-nowrap">
-          {label}
-          {required && <span className="text-red-500 ml-0.5">*</span>}
-        </label>
-        {children}
-      </div>
-    );
-  }
-
-  /** Styled text input */
-  function TextInput({ name, placeholder, value, onChange }) {
-    return (
-      <input
-        name={name}
-        placeholder={placeholder}
-        type="text"
-        value={value}
-        onChange={onChange}
-        className="
-        w-full rounded-lg px-2 py-1.5 text-sm
-        bg-[var(--input-enable-bg)] !border !border-[var(--input-enable-border)]
-        text-[var(--text-color)] placeholder:text-[var(--search-placeholder)]
-        focus:outline-none focus:border-[var(--input-onhover-border))]
-        focus:ring-1 focus:ring-[var(--input-onhover-border)] transition-colors
-      "
-      />
-    );
-  }
-
-  /** Styled number input */
-  function NumInput({ name, placeholder, value, onChange }) {
-    return (
-      <input
-        name={name}
-        placeholder={placeholder}
-        type="number"
-        min={0}
-        value={value}
-        onChange={onChange}
-        className="
-        w-full rounded-lg px-2 py-1.5 text-sm
-        bg-[var(--input-enable-bg)] !border !border-[var(--input-enable-border)]
-        text-[var(--text-color)] placeholder:text-[var(--search-placeholder)]
-        focus:outline-none focus:!border-[var(--input-onhover-border)]
-        focus:ring-1 focus:ring-[var(--input-onhover-border)] transition-colors mb-2
-      "
-      />
-    );
-  }
 
   /* ─── Main card ──────────────────────────────────────────────── */
 
@@ -5898,8 +5855,7 @@ export const TemplateFilter = () => {
                   setParameterList(Temp);
                 }}
                 options={AlertOptionsList}
-                className="basic-multi-select"
-                classNamePrefix="select"
+                 styles={customStyles}
               />
             </div>
           </div>
@@ -6312,7 +6268,7 @@ export const TemplateFilter = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* TEMPLATE NAME */}
             <div className="flex flex-col">
-              <label className="text-sm font-medium text-[var(--text-color)]">
+              <label className="text-sm font-medium text-[var(--text-color)] ">
                 Template Name <span className="text-red-500">*</span>
               </label>
 

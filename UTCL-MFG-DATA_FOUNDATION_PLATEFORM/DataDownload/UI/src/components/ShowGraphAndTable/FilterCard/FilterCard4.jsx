@@ -4084,12 +4084,15 @@ export const FilterCard4 = ({ showingInTrend, data }) => {
       ...base,
       fontFamily: "Inter, sans-serif",
       color: "var(--text-color)",
+       fontSize: "13px",
     }),
 
     input: (base) => ({
       ...base,
       fontFamily: "Inter, sans-serif",
       color: "var(--text-color)",
+      fontSize: "13px",
+
     }),
 
     placeholder: (base) => ({
@@ -4275,8 +4278,8 @@ ${isTagDisabled
 
             <div
               className={`w-full h-[35px] rounded-lg !border !border-[var(--input-enable-border)]
-  flex items-center px-2 text-xs
-  text-[var(--card-subtle)]
+  flex items-center px-2 text-[13px]
+  text-[var(--card-subtle)] 
  ${isTagDisabled
                   ? "bg-[var(--input-disable-bg)] cursor-not-allowed opacity-70"
                   : "bg-[var(--input-enable-bg)] cursor-pointer hover:border-[var(--picker-accent)]"

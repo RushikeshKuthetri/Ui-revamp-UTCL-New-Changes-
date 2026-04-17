@@ -18,6 +18,7 @@ import C6 from "./assets/C6.png";
 import K4 from "./assets/K4.png";
 import K5 from "./assets/K5.png";
 import K6 from "./assets/K6.png";
+import { IoClose } from "react-icons/io5";
 
 import moment from "moment";
 import { BiChevronLeft } from "react-icons/bi";
@@ -63,7 +64,7 @@ export const CycloneView = () => {
         color: "var(--text-color)",
       },
       width: 1300,
-      height: 600,
+      height: 500,
       renderTo: "container",
       spacing: [50, 50, 50, 50],
       zoomType: "x",
@@ -72,9 +73,8 @@ export const CycloneView = () => {
         load: function () {
           var svg = this.container.getElementsByTagName("svg")[0];
 
-          svg.style.width = "1300px"; // custom width
-
-          svg.style.height = "700px"; // custom height
+          svg.style.width = "1300px"    // ✅ responsive
+          svg.style.height = "350px";  // ✅ 700 → 380
         },
       },
     },
@@ -82,6 +82,7 @@ export const CycloneView = () => {
       text: null,
       style: {
         color: "var(--text-color)",
+        fontSize: "14px",
       },
     },
     legend: {
@@ -91,6 +92,7 @@ export const CycloneView = () => {
       itemMarginTop: 0, // Optional: Increase the margin between legend items and chart
       itemStyle: {
         color: "var(--text-color)",
+        fontSize: "14px",
       },
       itemHoverStyle: {
         color: "var(--text-color)",
@@ -102,11 +104,13 @@ export const CycloneView = () => {
         text: "", // Set the x-axis title
         style: {
           color: "var(--text-color)",
+          fontSize: "14px",
         },
       },
       labels: {
         style: {
           color: "var(--text-color)",
+          fontSize: "14px",
         },
       },
       reversed: true,
@@ -117,11 +121,15 @@ export const CycloneView = () => {
         text: "",
         style: {
           color: "var(--text-color)",
+          fontSize: "14px",
+
         },
       },
       labels: {
         style: {
           color: "var(--text-color)",
+          fontSize: "14px",
+
         },
       },
       gridLineColor: "rgba(130, 130, 130, 0.15)",
@@ -370,6 +378,7 @@ export const CycloneView = () => {
               style: {
                 ...options.xAxis?.title?.style,
                 color: "var(--text-color)",
+                 fontSize: "14px",
               },
             },
             labels: {
@@ -377,6 +386,7 @@ export const CycloneView = () => {
               style: {
                 ...options.xAxis?.labels?.style,
                 color: "var(--text-color)",
+                fontSize: "14px",   // ✅ add this
               },
             },
             reversed: true,
@@ -396,6 +406,7 @@ export const CycloneView = () => {
               style: {
                 ...options.yAxis?.labels?.style,
                 color: "var(--text-color)",
+                fontSize: "14px",   // ✅ add this
               },
             },
           },
@@ -404,6 +415,7 @@ export const CycloneView = () => {
             style: {
               ...options.tooltip?.style,
               color: "var(--text-color)",
+               fontSize: "14px",
             },
           },
         });
@@ -464,9 +476,21 @@ export const CycloneView = () => {
 
   const trendsModal = () => {
     return (
-      <Modal show={showModal} onHide={handleClose} animation={false} className="cyclone-trends-modal">
+      <Modal
+        show={showModal}
+        onHide={handleClose}
+        animation={false}
+        className="cyclone-trends-modal"
+        dialogClassName="!max-w-4xl"
+      >
 
-        <Modal.Header className="cyclone-trends-modal-header mt-3">
+       <Modal.Header className="cyclone-trends-modal-header mt-2 position-relative">
+        <button
+    onClick={handleClose}
+    className="absolute text-[var(--text-color)] top-2 -right-20 text-[20px] font-bold cursor-pointer"
+  >
+ <IoClose />
+  </button>
           <div className="cyclone-trends-modal-nav ">
 
             {/* Start Date */}
@@ -532,7 +556,7 @@ export const CycloneView = () => {
             {/* Submit */}
             <div className="flex items-end">
               <button
-                className="modal-submit-btn"
+                className="px-3 py-1 flex justify-center rounded-md !border !border-[var(--button-border)] bg-[var(--submit-button-bg)] hover:bg-[var(--submit-button-hover-bg)] cursor-pointer transition-all duration-200 text-[14px] text-[#111111] font-medium active:scale-95"
                 onClick={() => {
                   graphApiDataPayload();
                   setIsLoading(true);
@@ -549,7 +573,7 @@ export const CycloneView = () => {
           {isLoading ? (
             <div
               className="d-flex align-items-center cyclone-trends-modal-loader"
-              style={{ minHeight: "600px" }}
+              style={{ minHeight: "200px" }}
             >
               {loader}
             </div>
@@ -557,8 +581,15 @@ export const CycloneView = () => {
             <HighchartsReact highcharts={Highcharts} options={options} />
           )}
         </Modal.Body>
-        <Modal.Footer className="cyclone-trends-modal-footer">
-          <Button variant="secondary" onClick={handleClose} className="cyclone-trends-close-button">
+        <Modal.Footer className="">
+          <Button variant="secondary" onClick={handleClose}  className="px-2 py-1
+            text-[14px]
+            rounded-lg
+           !border !border-[var(--button-border)]
+            bg-[var(--button-bg)]
+            hover:bg-[var(--button-hover-bg)]
+            text-[var(--text-color)] font-medium
+            transition-all focus:outline-none focus:ring-0 outline-none">
             Close
           </Button>
         </Modal.Footer>

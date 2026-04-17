@@ -81,6 +81,17 @@ export const Card = ({ data, view, plantId, stats }) => {
       .toLowerCase()
       .replace(/\b\w/g, (char) => char.toUpperCase());
 
+  const formatName = (text = "") => {
+  let formatted = text
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
+  // Special case for HO
+  formatted = formatted.replace(/\bHo\b/g, "HO");
+
+  return formatted;
+};
+
 
   return (
     <div className="col-12 col-sm-6 mt-2 px-1"
@@ -108,7 +119,8 @@ relative z-10 hover:z-20
         >
           {/* Title */}
           <h3 className="text-[14px] font-medium mb-3 text-[var(--text-color)]">
-            {toTitleCase(data?.name)}
+            {/* {toTitleCase(data?.name)} */}
+             {formatName(data?.name)}
           </h3>
 
           {/* Bottom Section */}

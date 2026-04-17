@@ -654,28 +654,37 @@ body {
     background: var(--bg-color) !important;
     color: var(--text-color) !important;
 
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+   
     border-radius: 0.75rem;
+}
+
+.cyclone-trends-modal .modal-body {
+    padding: 0 !important;
+    margin: 0 !important;
+     max-height: 60vh !important;   /* 🔥 height control */
+    overflow-y: auto;   
 }
 
 .cyclone-trends-modal .modal-header {
     background: var(--bg-color);
     color: var(--header-text-color);
     border-bottom: none;
+       padding: 0 !important;   
 }
 
 .cyclone-trends-modal-body {
     background: var(--bg-color);
     color: var(--text-color);
-    min-height: 600px;
-    padding: 1rem;
+    min-height: unset !important;     /* ✅ min-height hatao */
+    overflow: hidden !important;
+   
 }
 
 .cyclone-trends-modal-footer {
     background: var(--bg-color);
     border-top: 1px solid rgba(0, 0, 0, 0.12);
-    display: flex;
-    justify-content: flex-end;
+    /* display: flex;
+    justify-content: flex-end; */
 }
 
 .cyclone-trends-close-button {
@@ -690,7 +699,9 @@ body {
     background: var(--bg-main-container);
     border-radius: 0.5rem;
     width: 100%;
+    min-height: unset !important;     /* ✅ yahan bhi */
 }
+
 
 
 
@@ -699,11 +710,19 @@ body {
     flex-direction: row;
     gap: 1rem;
     width: 100%;
-    padding: 10px 20px;
+   padding: 8px 12px !important;
     flex-wrap: wrap;
 }
 
+.cyclone-trends-modal .modal-dialog {
+    max-height: 90vh !important;
+    margin: 5vh auto !important;
+}
 
+.cyclone-trends-modal .modal-content {
+    max-height: 90vh !important;
+    overflow: hidden !important;
+}
 
 /* Label */
 .modal-label {
@@ -732,14 +751,16 @@ body {
 }
 
 /* Button */
-.modal-submit-btn {
-    padding: 6px 14px;
+/* .modal-submit-btn {
+    padding: 4px 10px;
     border-radius: 6px;
     border: 1px solid var(--button-border);
     background: var(--submit-button-bg);
     cursor: pointer;
     transition: all 0.2s;
-}
+    font-size: 14px;
+
+} */
 
 .modal-submit-btn:hover {
     background: var(--submit-button-hover-bg);
