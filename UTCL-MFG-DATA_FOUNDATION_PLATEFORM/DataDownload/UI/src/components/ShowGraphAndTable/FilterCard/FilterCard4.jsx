@@ -2850,6 +2850,12 @@ export const FilterCard4 = ({ showingInTrend, data }) => {
   const [filteredTags, setFilteredTags] = useState([]);
   const [tempSelectedTags, setTempSelectedTags] = useState([]);
   const isTagDisabled = !showingInTrend && sectionDropDisable;
+  const isDownloadFormComplete =
+    plantSelected?.length > 0 &&
+    tagSelected?.length > 0 &&
+    !!startDate &&
+    !!endDate &&
+    !!intervalSelected?.value;
 
   useEffect(() => {
     if (tagListModalOpen) {
@@ -4396,7 +4402,7 @@ ${isTagDisabled
         <div className="flex justify-center mt-2 mb-2">
           <button
             onClick={downloadHandler}
-            disabled={userStatus.loading}
+            disabled={userStatus.loading || !isDownloadFormComplete}
             className="shrink-0 cursor-pointer px-2.5 py-1 rounded-md bg-[var(--submit-button-bg)] hover:bg-[var(--submit-button-hover-bg)] text-[#111111] text-[14px] font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {userStatus.loading ? <ClipLoader size={16} /> : "Download Data"}

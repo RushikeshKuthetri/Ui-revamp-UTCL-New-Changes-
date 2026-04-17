@@ -1242,13 +1242,13 @@ const MimicLineAlerts = () => {
   const recepientCard = (val) => {
     // console.log(val, cardValues[val])
     return (
-      <div className="flex flex-col gap-2">
-        <label className="text-sm text-[var(--text-color)]">
+      <div className="flex flex-col -mt-2">
+        <label className="text-sm text-[var(--text-color)] -ml-1">
           Recipients <span className="text-danger"></span> :
         </label>
         <div className="flex flex-wrap gap-2 max-h-[80px] overflow-y-auto pr-1">
           {cardValues[val].reciepients.map((item) => (
-            <div className="flex items-center gap-2 px-2 py-1 text-xs rounded-md bg-[var(--submit-button-bg)] text-[#111111]" key={item}>
+            <div className="flex items-center gap-2 px-1.5 py-0.5 text-xs rounded-md bg-[var(--submit-button-bg)] text-[#111111]" key={item}>
               {item}
               <button
                 type="button"
@@ -1267,9 +1267,9 @@ const MimicLineAlerts = () => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
           <input
-            className={`w-full !border rounded-md px-3 py-1.5 text-sm bg-[var(--input-enable-bg)] text-[var(--text-color)] focus:outline-none focus:border-[var(--submit-button-bg)]
+            className={`w-full mt-0.5 !border rounded-md px-2 py-1 text-[12px] bg-[var(--input-enable-bg)] text-[var(--text-color)] focus:outline-none focus:border-[var(--submit-button-bg)]
           ${cardValues[val].recipientInput !== "" && cardValues[val].recipientError !== ""
                 ? "border-red-500"
                 : "border-[var(--search-border)]"
@@ -1321,13 +1321,58 @@ const MimicLineAlerts = () => {
     return (
       <div
         key={index}
-        className="bg-[var(--alert-card-bg)] !border !border-[var(--search-border)] rounded-2xl px-2 py-2 w-full flex flex-col gap-4 shadow-[var(--card-shadow)] hover:shadow-[var(--card-shadow-onhover)] transition-all duration-200"
+        className="bg-[var(--alert-card-bg)] !border !border-[var(--search-border)] gap-2 rounded-2xl px-2 pb-2 w-full flex flex-col shadow-[var(--card-shadow)] hover:shadow-[var(--card-shadow-onhover)] transition-all duration-200"
       >
-        <div className="flex flex-row gap-6 text-sm text-[var(--text-color)] font-medium">
-          <div> Plant : {cardValues[val].plant} </div>
-          <div> Line : {cardValues[val].line} </div>
-          <div> Section: {cardValues[val].section} </div>
-        </div>
+        <div className="flex items-center justify-between gap-2 text-[13px] text-[var(--text-color)] font-normal">
+  
+  <div className="flex flex-row gap-3">
+    <div className="flex items-center gap-1">
+      <span>Plant:</span>
+      <span>{cardValues[val].plant}</span>
+    </div>
+
+    <div className="flex items-center gap-1">
+      <span>Line:</span>
+      <span>{cardValues[val].line}</span>
+    </div>
+
+    <div className="flex items-center gap-1">
+      <span>Section:</span>
+      <span>{cardValues[val].section}</span>
+    </div>
+  </div>
+
+  <div className="flex items-center gap-2 whitespace-nowrap">
+    <label className="relative mt-1 inline-flex items-center cursor-pointer">
+      <input
+        type="checkbox"
+        checked={cardValues[val].isActive}
+        onChange={(e) => {
+          let tempCardValues = { ...cardValues };
+          tempCardValues[val].isActive = e.target.checked;
+          tempCardValues[val].isChanged = true;
+          setCardValues(tempCardValues);
+        }}
+        className="sr-only peer"
+      />
+
+      <div className="
+        w-10 h-5 bg-[var(--alert-checkbox-bg)] rounded-full
+        peer-checked:bg-[var(--submit-button-bg)]
+        transition-colors duration-300 
+      "/>
+
+      <div className="
+        absolute
+        w-4 h-4 bg-white rounded-full shadow 
+        transition-transform duration-300
+        left-1.5 peer-checked:translate-x-5
+      "/>
+    </label>
+  </div>
+
+</div>
+        {/* Original active status block retained for reference
         <div className="flex items-center justify-between flex-nowrap w-full">
           <div className="flex items-center gap-2 whitespace-nowrap">
             <span className="text-sm text-[var(--text-color)]">Active Status:</span>
@@ -1358,7 +1403,7 @@ const MimicLineAlerts = () => {
         transition-colors duration-300
     "/>
 
-            {/* Circle — also a direct sibling of input */}
+            Circle toggle handle
             <div className="
         absolute left-0.4 top-0.5
         w-4 h-4 bg-white rounded-full shadow
@@ -1367,9 +1412,10 @@ const MimicLineAlerts = () => {
     "/>
           </label>
         </div>
+        */}
 
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-[var(--text-color)]">
+        <div className="-mt-2 flex justify-between">
+          <label className="text-sm font-medium text-[var(--text-color)] whitespace-nowrap -ml-1">
             Time Interval (in minutes)
           </label>
 
@@ -1384,14 +1430,14 @@ const MimicLineAlerts = () => {
               setCardValues(tempCardValues);
             }}
             placeholder="Enter Time Interval"
-            className="h-9 w-full !border border-[var(--input-enable-border)] rounded-md px-3 text-sm bg-[var(--input-enable-bg)] text-[var(--text-color)] focus:outline-none focus:border-[var(--submit-button-bg)]"
+            className="w-28 h-6 !border border-[var(--input-enable-border)] rounded-md px-2 text-xs bg-[var(--input-enable-bg)] text-[var(--text-color)] focus:outline-none focus:border-[var(--submit-button-bg)]"
           />
         </div>
         {recepientCard(val)}
         <div className="flex justify-center gap-4 ">
           {cardValues[val].submitLoader && loader}
           <button
-            className="px-3 py-1
+            className="px-3 py-0.5
 text-[14px]
 rounded-lg
 !border !border-[var(--button-border)]
@@ -1407,7 +1453,7 @@ disabled:opacity-50"
             Apply
           </button>
           <button
-            className="px-3 py-1
+            className="px-3 py-0.5
 text-[14px]
 rounded-lg
 !border !border-[var(--button-border)]
@@ -1602,7 +1648,7 @@ disabled:opacity-50"
           >
             <button
               onClick={() => setDeleteKey(null)}
-              className="absolute top-2 right-3 text-gray-400 hover:text-gray-700 text-xl"
+              className="absolute top-2 right-3 text-gray-400 hover:text-gray-700 text-2xl"
             >
               ×
             </button>
@@ -1630,7 +1676,7 @@ disabled:opacity-50"
                   if (deleteCallback) deleteCallback(); // 🔥 original logic runs
                   setDeleteKey(null);
                 }}
-                className="px-4 py-1 rounded-md !border border-[var(--button-border)] bg-[var(--submit-button-bg)] hover:bg-[var(--submit-button-hover-bg)] text-red-500 font-medium"
+                className="px-4 py-1 rounded-md !border border-[var(--button-border)] bg-[var(--submit-button-bg)] hover:bg-[var(--submit-button-hover-bg)] text-[#111111] font-medium"
               >
                 Delete
               </button>

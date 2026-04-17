@@ -199,6 +199,7 @@ import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import useToken from "../UseToken/useToken";
 import LOGO from "../../img/adityabirlalogo.png";
+import loader from "../../img/loader.png";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { useDispatch, useSelector } from "react-redux";
 const Navbar = () => {
@@ -236,15 +237,16 @@ const Navbar = () => {
               <FaBars className="bar" onClick={showSidebar} />
             </Link> */}
             <div className="flex items-center gap-3">
-              <Link to="/admin/Dashboard">
-                <img
-                  src={LOGO}
-                  alt="Logo"
-                  className="logo h-[50px] w-[50px]"
-                />
-              </Link>
+              <div className="flex gap-2">
+                <Link to="/templates">
+                  <img src={LOGO} className="h-[50px] w-[50px]" alt="logo" />
+                </Link>
+                <Link to="/templates">
+                  <img src={loader} className="h-[45px] w-[80px] align-center" alt="logo2" />
+                </Link>
+              </div>
               <h1 className="text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--text-color)] font-[600] tracking-tight text-center">
-                Prakriti: UltraTech's Unified OT Data Foundation
+                UltraTech's Unified OT Data Foundation
               </h1>
             </div>
             <div className="navbar-content-right ml-auto username">

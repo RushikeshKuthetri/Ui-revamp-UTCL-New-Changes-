@@ -70,31 +70,34 @@
 import { CentralTableBody } from "./CentralTableBody";
 
 export const CentralTable = () => {
+  const borderCellClass = "!border !border-[var(--form-border)]";
+  const headerCellClass = `${borderCellClass} bg-gradient-to-r from-orange-400 to-orange-300 text-[#111111]`;
+
   return (
-    <table className="w-full min-w-[1200px]  text-[var(--text-color)] text-sm table cd_table">
+    <table className="w-full min-w-[1200px] overflow-x-hidden text-[var(--text-color)] !border !border-[var(--form-border)] !border-collapse">
 
       <thead className="bg-[var(--bg-header)] text-[var(--header-text-color)]">
 
         <tr >
-          <th colSpan="3" className="border border-[var(--card-border)]"></th>
+          <th colSpan="3" className={borderCellClass}></th>
 
-          <th colSpan="4" className=" bg-gradient-to-r from-orange-400 to-orange-300 text-black ">
+          <th colSpan="4" className={`${headerCellClass} text-sm`}>
             Kiln (TPH / day(s))
           </th>
 
-          <th colSpan="6" className="bg-gradient-to-r from-orange-400 to-orange-300 text-black">
+          <th colSpan="6" className={headerCellClass}>
             Cement Mill (TPH / day(s))
           </th>
         </tr>
 
-        <tr className="bg-gradient-to-r from-orange-400 to-orange-300 text-black">
-          <th className="border border-[var(--card-border)] px-3 py-2 text-left">
+        <tr className="bg-gradient-to-r from-orange-400 to-orange-300 text-[#111111]">
+          <th className={`${borderCellClass} px-3 py-2 text-left`}>
             Zone
           </th>
-          <th className="border border-[var(--card-border)] px-3 py-2 text-left">
+          <th className={`${borderCellClass} px-3 py-2 text-left`}>
             Type
           </th>
-          <th className="border border-[var(--card-border)] px-3 py-2 text-left">
+          <th className={`${borderCellClass} px-3 py-2 text-left`}>
             Plant
           </th>
 
@@ -104,7 +107,7 @@ export const CentralTable = () => {
           ].map((item, i) => (
             <th
               key={i}
-              className="border border-[var(--card-border)] px-3 py-2 text-center"
+              className={`${borderCellClass} px-3 py-2 text-center`}
             >
               {item}
             </th>

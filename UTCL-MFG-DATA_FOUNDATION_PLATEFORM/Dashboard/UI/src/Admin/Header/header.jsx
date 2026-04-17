@@ -27,20 +27,25 @@
 
 import React from "react";
 import Logo from "../../img/adityabirlalogo.png";
+import loader from "../../img/loader.png";
 
 const Header = () => {
   return (
     <header className="w-full h-14 bg-[var(--bg-header)] px-6 flex items-center justify-between shadow-[var(--header-shadow)] sticky top-0 z-50">
       <div className="flex items-center gap-3">
 
-        <img
-          src={Logo}
-          alt="Aditya Birla Logo"
-          className="h-10 w-auto object-contain"
-        />
+
+        <div className="flex gap-2">
+          <img
+            src={Logo}
+            alt="Aditya Birla Logo"
+            className="h-10 w-auto object-contain"
+          />
+          <img src={loader} className="h-[45px] w-[80px] align-center" alt="logo2" />
+        </div>
 
         <h1 className="text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--text-color)] font-semibold tracking-tight">
-          Prakriti: UltraTech's Unified OT Data Foundation
+          UltraTech's Unified OT Data Foundation
         </h1>
 
       </div>

@@ -70,6 +70,7 @@
 
 // import "./Navbar.css"
 import adityabirlalogo from "../../img/adityabirlalogo.png";
+import loader from "../../img/loader.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BiLogOutCircle } from "react-icons/bi";
@@ -110,12 +111,17 @@ export function Navbar() {
     <div className="w-full h-14 bg-[var(--bg-header)] px-6 flex items-center justify-between shadow-[var(--header-shadow)] scroll">
       <div className="flex items-center ">
 
-        <button className="navbar-brand">
-          <img src={adityabirlalogo} className="logo w-[50px] h-[50px]" alt="logo" />
-        </button>
+        <div className="flex gap-2">
+          <button>
+            <img src={adityabirlalogo} className="logo w-[50px] h-[50px]" alt="logo" />
+          </button>
+          <button>
+            <img src={loader} className="h-[45px] w-[80px] align-center mb-1.5" alt="logo2" />
+          </button>
+        </div>
 
-        <h1 className=" -ml-2 text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
-          Prakriti: UltraTech's Unified OT Data Platform
+        <h1 className="ml-2 text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
+          UltraTech's Unified OT Data Platform
         </h1>
 
       </div>
@@ -141,4 +147,3 @@ export function Navbar() {
     </div>
   );
 }
- 

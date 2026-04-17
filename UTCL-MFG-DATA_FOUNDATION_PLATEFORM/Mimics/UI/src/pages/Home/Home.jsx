@@ -123,8 +123,9 @@ export const Home = () => {
               </>
             ) : (
               <NotFound
-                heading="OOPs! No permission"
-                message="You don't have permission to access the page. Please contact the admin."
+                // heading="OOPs! No permission"
+                // message="You don't have permission to access the page. Please contact the admin."
+                heading="OOPs! No Mimics available for this plant"
               />
             )}
           </>

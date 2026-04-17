@@ -24,8 +24,8 @@ export const MillsDashboardComponent = ({ plantSection, searchedPlant }) => {
     )
   ) : (
     <NotFound
-      heading="No sections are added yet!"
-      message="The sections for this plant is not added yet. We are still working on it."
+      heading="No Mimics available for this plant!"
+      // message="The sections for this plant is not added yet. We are still working on it."
     />
   );
 };

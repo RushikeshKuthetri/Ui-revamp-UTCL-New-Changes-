@@ -1,16 +1,13 @@
 .AwarpurCBAMines {
   .greenTxt {
-    color: white !important;
+    color: #B7C5C5 !important;
     background-color: transparent;
     font-size: 20px;
-  }
-  table tr:hover {
-    background: none;
   }
   table,
   th,
   td {
-    border: 1px solid white;
+    border: 1px solid var(--text-color);
     padding: 15px 42px;
   }
   .text-white {
@@ -18,6 +15,27 @@
   }
   .single-text-1 {
     transform: translate(2.6vw, 3vh);
+    .cba-mines-table {
+      color: #B7C5C5 !important;
+      background-color: #346667 !important;
+      border-collapse: collapse;
+    }
+    .cba-mines-table th,
+    .cba-mines-table td {
+      background-color: #346667 !important;
+      color: #B7C5C5 !important;
+    }
+    .cba-mines-table tr:hover th,
+    .cba-mines-table tr:hover td {
+      background-color: #2b5658 !important;
+      color: #B7C5C5 !important;
+    }
+    .cba-mines-table .text-white {
+      color: #B7C5C5 !important;
+    }
+    .cba-mines-table tr:hover .text-white {
+      color: #B7C5C5 !important;
+    }
   }
   .single-text-2 {
     transform: translate(65.4vw, 61vh);

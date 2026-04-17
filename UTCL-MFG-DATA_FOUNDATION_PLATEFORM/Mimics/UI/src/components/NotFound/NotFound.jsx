@@ -55,7 +55,7 @@ export const NotFound = ({ heading, message }) => {
         />
 
         {/* HEADING */}
-        <h1 className="mt-4 text-2xl font-bold text-[var(--title)]">
+        <h1 className="mt-4 text-xl font-semibold text-[var(--title)]">
           {heading}
         </h1>
 
@@ -71,12 +71,14 @@ export const NotFound = ({ heading, message }) => {
             navigate("/dashboard");
           }}
           className="
-            mt-5
+            mt-3
             px-5
             py-2
             rounded-lg
-            bg-[var(--bg-header)]
-            text-white
+            border border-[var(--button-border)]
+            bg-[var(--submit-button-bg)]
+            hover:bg-[var(--submit-button-hover-bg)]
+            text-[#111111]
             font-medium
             text-sm
             transition-all

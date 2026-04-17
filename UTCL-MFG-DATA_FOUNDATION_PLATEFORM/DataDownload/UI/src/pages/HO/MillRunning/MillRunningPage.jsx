@@ -121,7 +121,7 @@ export const MillRunningPage = () => {
             />
           </div>
 
-          <div className="table-responsive table-scroll border border-secondary text-nowrap">
+          <div className="table-responsive overflow-auto h-[calc(100vh-149px)] border border-[var(--form-border)] text-nowrap">
             <CentralTable />
           </div>
           <CentralTableLegend />

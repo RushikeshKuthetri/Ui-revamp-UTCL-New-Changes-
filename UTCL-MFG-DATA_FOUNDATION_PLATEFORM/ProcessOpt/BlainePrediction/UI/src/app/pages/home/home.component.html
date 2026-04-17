@@ -54,7 +54,7 @@
 
         <select class="w-full min-h-[29px] text-[13px] rounded-lg
         bg-[var(--input-enable-bg)] px-1
-        !border border-[var(--input-enable-border)]
+        !border !border-[var(--input-enable-border)]
          text-[var(--search-placeholder)]
         outline-none
         focus:!border-[var(--input-onhover-border)]
@@ -170,7 +170,7 @@
           <!-- Score -->
           <div class="flex flex-col items-center justify-center text-center py-3">
 
-            <span class="text-xl text-[var(--text-color)]  predicted_value">
+            <span class="text-5xl font-bold text-[var(--title)]  predicted_value">
               {{title=='Blaine'?datasource.Predicted_Blaine:datasource.Predicted_Blaine.toFixed(1)}}
             </span>
 
@@ -386,7 +386,7 @@
 
       <!-- table and inputs -->
       <div class="w-[50%] md:w-[50%] sm:w-full  ">
-        <div class="rounded-lg !border !border-[var(--form-border)] h-full flex flex-col shadow-sm overflow-hidden">
+        <div class="rounded-lg !border !border-[var(--form-border)] flex flex-col shadow-sm overflow-hidden">
 
           <!-- Card Title -->
           <h6
@@ -403,7 +403,7 @@
                !border !border-[var(--input-enable-border)]
                text-[var(--select-input-value)]
                outline-none
-               focus:border-[#888888]
+               focus:!border-[#888888]
                transition-all duration-200
                 placeholder:text-[var(--search-placeholder)]" placeholder="Enter Actual Blaine" [min]="0"
               [(ngModel)]="userActualBlaine" />
@@ -414,7 +414,7 @@
                !border !border-[var(--input-enable-border)]
                text-[var(--select-input-value)]
                outline-none
-               focus:border-[#888888]
+               focus:!border-[#888888]
                cursor-pointer
                placeholder:text-[var(--search-placeholder)]
                transition-all duration-200" placeholder="Select hours" [(ngModel)]="blainHour"
@@ -436,12 +436,12 @@
           </div>
 
           <!-- Table -->
-          <div class="overflow-y-auto flex-1 mx-2 rounded-lg rounded-b-lg ">
+          <div class="overflow-y-auto mx-2 rounded-lg ">
 
             <table *ngIf="tableData && tableData.length > 0"
-              class="w-full text-sm overflow-y-auto border border-[var(--form-border) rounded-lg rounded-b-lg">
+              class="w-full text-sm overflow-y-auto !border !border-[var(--form-border) rounded-lg rounded-b-lg">
 
-              <thead class="bg-gradient-to-r from-orange-400 to-orange-300 text-black">
+              <thead class="bg-gradient-to-r from-orange-400 to-orange-300 text-[#111111]">
                 <tr>
                   <th class="text-left px-2 py-2 font-semibold !border-b !border-[var(--form-border)]">Time</th>
                   <th class="text-left  px-2 py-2 font-semibold !border-b !border-[var(--form-border)]">Predicted {{
@@ -456,9 +456,9 @@
               <tbody>
                 <tr *ngFor="let item of tableData"
                   class="!border-b text-[var(--text-color)] !border-[var(--form-border)] transition hover:bg-orange-50/10">
-                  <td class=" px-2 py-2 whitespace-nowrap text-center">{{ item.Date_Time.slice(11, 16) }}</td>
-                  <td class=" px-2 py-2 whitespace-nowrap text-center">{{ item.pb }}</td>
-                  <td class=" px-2 py-2 whitespace-nowrap text-center">
+                  <td class=" px-2 py-2 whitespace-nowrap text-left">{{ item.Date_Time.slice(11, 16) }}</td>
+                  <td class=" px-2 py-2 whitespace-nowrap text-left">{{ item.pb }}</td>
+                  <td class=" px-2 py-2 whitespace-nowrap text-left">
                     {{ item.Actual_Blaine ? item.Actual_Blaine : 'To be filled' }}
                   </td>
                 </tr>
@@ -466,7 +466,7 @@
 
             </table>
 
-            <div *ngIf="tableData && tableData.length === 0" class="flex justify-center py-6 text-gray-500 text-sm">
+            <div *ngIf="tableData && tableData.length === 0" class="justify-center py-4 text-gray-500 text-sm">
               No Data Found
             </div>
 
@@ -474,7 +474,7 @@
 
           <!-- Accuracy Card (admin only) -->
           <div *ngIf="isRole === 'admin'"
-            class="mx-2 mb-2 rounded-lg !border !border-[var(--form-border)] overflow-hidden cursor-pointer"
+            class="mx-2 mb-2 rounded-lg !border !border-[var(--form-border)] overflow-hidden cursor-pointer mt-4"
             (dblclick)="getAccuracyLineData(); openModel(accuracyFraph)">
 
             <div *ngIf="accuracy10 > 0" class="flex flex-col items-center py-4">

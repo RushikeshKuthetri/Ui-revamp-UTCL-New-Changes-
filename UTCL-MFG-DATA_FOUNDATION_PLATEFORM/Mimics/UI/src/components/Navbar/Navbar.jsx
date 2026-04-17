@@ -303,6 +303,7 @@
 
 // import "./Navbar.css";
 import ultraLogo from "../../img/adityabirlalogo.png";
+import loader from "../../img/loader.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BiLogOutCircle } from "react-icons/bi";
@@ -401,10 +402,14 @@ export function Navbar() {
             dispatch({ type: "REMOVE_SELECTED_TAGNAMES" });
           }}
         >
-          <img src={ultraLogo} className="h-[50px] w-[50px]" alt="logo" />
+          <div className="flex gap-2">
+            <img src={ultraLogo} className="h-[50px] w-[50px]" alt="logo1" />
+            <img src={loader} className="h-[45px] w-[80px] align-center" alt="logo2" />
+          </div>
+
         </Link>
         <h1 className=" -ml-2 text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
-          Prakriti: UltraTech's Unified OT Data Platform
+          UltraTech's Unified OT Data Platform
         </h1>
       </div>
       {/* Links  */}
