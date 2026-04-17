@@ -191,6 +191,7 @@ import { FaBars, FaChartArea } from "react-icons/fa";
 import { clearStorage } from "../utils/storageUtils";
 import { useNavigate } from "react-router-dom";
 import LOGO from "./assets/adityabirlalogo.png";
+import loader from "./assets/loader.png";
 import { Link, useLocation } from "react-router-dom";
 import { BiLogOutCircle } from "react-icons/bi";
 
@@ -262,22 +263,27 @@ export const NavigationBar = () => {
     "/cyclonelist": "Cyclone View List",
   };
 
-   return (
-     <div
+  return (
+    <div
       className="w-full h-14 shadow-left-drawer-light dark:shadow-left-drawer-dark bg-[var(--bg-header)] px-6 flex items-center justify-between relative z-50"
     >
 
       {/* Left Section */}
       <div className="flex items-center gap-4 ">
-        <Link to="/templates">
-           <img src={LOGO} className="h-[50px] w-[50px]" alt="logo" />
-        </Link>
+        <div className="flex gap-2">
+          <Link to="/templates">
+            <img src={LOGO} className="h-[50px] w-[50px]" alt="logo" />
+          </Link>
+          <Link to="/templates">
+            <img src={loader} className="h-[45px] w-[80px] align-center" alt="logo2" />
+          </Link>
+        </div>
 
         {/* <h1 className="text-sm sm:text-md md:text-lg font-semibold text-[var(--header-text-color)] tracking-tight">
           {RouteHeadings[state.pathname]}
         </h1> */}
-         <h1 className=" -ml-2 text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
-          Prakriti: UltraTech's Unified OT Data Platform
+        <h1 className=" -ml-2 text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
+          UltraTech's Unified OT Data Platform
         </h1>
       </div>
 
@@ -303,7 +309,7 @@ export const NavigationBar = () => {
             hover:text-[#111111]
           "
           >
-            <BiLogOutCircle size={20} className="rotate-90"/>
+            <BiLogOutCircle size={20} className="rotate-90" />
           </button>
 
         </div>

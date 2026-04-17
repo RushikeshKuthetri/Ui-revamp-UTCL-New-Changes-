@@ -164,10 +164,10 @@ const TagSelectionModal = ({
                 onClick={(e) => e.stopPropagation()} // 🔥 IMPORTANT
             >
                 {/* MODAL CONTENT */}
-                <div className="rounded-xl shadow-2xl bg-[var(--bg-main-container)] text-[var(--text-color)]">
+                <div className="rounded-xl shadow-2xl bg-[var(--bg-main-container)] text-[var(--text-color)] mt-3">
 
                     {/* HEADER */}
-                    <div className="relative flex items-center justify-center p-2 !border-b border-[var(--form-border)]">
+                    <div className="relative flex items-center justify-center py-0.5 !border-b border-[var(--form-border)]">
                         <h2 className="text-lg font-semibold">
                             Select Tags
                         </h2>
@@ -199,7 +199,7 @@ const TagSelectionModal = ({
                                     setSearch(""); // 🔥 clear input after selection
                                 }
                             }}
-                            className="w-full mb-3 px-3 py-2 border rounded-md
+                            className="w-full mt-1 mb-2 px-2 py-0.5 border rounded-md
                             placeholder:text-[12px]
              bg-[var(--input-enable-bg)]
              !border-[var(--form-border)]
@@ -216,13 +216,13 @@ const TagSelectionModal = ({
                         />
 
                         {/* TABLE */}
-                        <div className="max-h-[55vh] overflow-auto !border rounded-md border-[var(--form-border)]">
+                        <div className="max-h-[65vh] !border rounded-md border-[var(--form-border)]">
                             <table className="w-full text-md">
 
                                 <thead className="sticky top-0 z-10 ">
                                     <tr>
                                         <th className="w-[40px] text-center bg-[var(--picker-accent)]"></th>
-                                        <th className="bg-[var(--picker-accent)] text-center text-xs font-semibold text-[#111111]">
+                                        <th className="bg-[var(--picker-accent)] text-center text-sm font-semibold text-[#111111]">
                                             Tag and Tag Description
                                         </th>
                                     </tr>
@@ -243,7 +243,7 @@ const TagSelectionModal = ({
                                                 />
                                             </td>
 
-                                            <td className="text-sm font-medium break-words">
+                                            <td className="text-[13px] font-medium break-words">
                                                 {highlightText(tag.label, search)}
                                             </td>
                                         </tr>
@@ -251,7 +251,7 @@ const TagSelectionModal = ({
 
                                     {paginatedTags.length === 0 && (
                                         <tr>
-                                            <td colSpan={2} className="text-center py-3">
+                                            <td colSpan={2} className="text-center text-sm py-3">
                                                 No tags found
                                             </td>
                                         </tr>
@@ -262,7 +262,7 @@ const TagSelectionModal = ({
 
                         {/* PAGINATION */}
                         {totalPages > 1 && (
-                            <div className="flex justify-between items-center mt-3">
+                            <div className="flex justify-between items-center mt-2">
                                 <button
                                     disabled={page === 0}
                                     onClick={() => setPage(p => p - 1)}
@@ -275,7 +275,7 @@ const TagSelectionModal = ({
                                     Prev
                                 </button>
 
-                                <span className="text-xs font-medium">
+                                <span className="text-sm font-medium">
                                     Page {page + 1} of {totalPages}
                                 </span>
 
@@ -309,7 +309,7 @@ const TagSelectionModal = ({
 
                         <button
                             onClick={() => onApply(tempSelected)}
-                            className="px-3 py-1 text-sm rounded text-white
+                            className="px-3 py-1 text-sm rounded text-[#111111]
                        bg-[var(--picker-accent)]
                        hover:bg-[var(--button-hover-bg)]"
                         >

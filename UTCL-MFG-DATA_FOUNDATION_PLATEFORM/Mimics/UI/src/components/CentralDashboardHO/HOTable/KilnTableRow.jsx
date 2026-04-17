@@ -154,7 +154,12 @@ export const KilnTableRow = ({ tagname, plant, taguid }) => {
   const analogValue = useHOTableValue(tagname, plant);
 
   return (
-    <div className="flex items-center whitespace-nowrap">
+    <div className="flex items-center whitespace-nowrap cursor-pointer" 
+    onDoubleClick={() => {
+      // trendChartApi(tagname, dispatch, filterData, startDate, authProvider, [], true)
+      trendChartPlotlyApi(tagname, dispatch, filterData, startDate, authProvider, [], true)
+      // openTrends(tagname, dispatch, filterData, startDate, authProvider);
+    }}>
       <div
         className={`dot  digital-tag ${kilnClassname}`}
         onClick={() => {

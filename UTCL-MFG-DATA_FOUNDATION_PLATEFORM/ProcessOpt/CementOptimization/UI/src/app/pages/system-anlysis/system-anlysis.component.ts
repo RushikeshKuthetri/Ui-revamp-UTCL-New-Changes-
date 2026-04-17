@@ -460,9 +460,11 @@ export class SystemAnlysisComponent {
   }
 
   public openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+    // this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(template, {
+      class: 'recommendation-modal'
+    });
     // this.checkNotification=true;
-  
     // console.log(this.modalService.getModalsCount());
     
   }

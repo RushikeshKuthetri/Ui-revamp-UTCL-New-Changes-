@@ -9,8 +9,7 @@
 
     <!-- Notification Icon -->
     <div>
-      <a
-        (click)="
+      <a (click)="
           openModal(recommedationtemplate);
           getRecommendationPopupData();
           bellClick()
@@ -59,12 +58,12 @@
       <!-- {{dataSource}} -->
       <app-loader></app-loader>
     </div>
-    <div class="flex flex-row mb-2 gap-2 m-1" [hidden]="flags.showLoader">
+    <div class="flex flex-row mb-2 gap-2 mx-3" [hidden]="flags.showLoader">
       <div class="w-full" *ngIf="dataSource && dataSource.Resultant_Tags_Data.length > 0">
-        <div class="flex gap-5 w-full">
+        <div class="flex gap-3 w-full">
           <!-- RESULTANT PARAMETERS -->
           <div
-            class="flex-1 bg-[var(--dashboard-graph-bg)] rounded-xl px-3 py-2 h-[55vh] overflow-y-auto overflow-x-hidden custom-scrollbar">
+            class="flex-1 bg-[var(--dashboard-graph-bg)] !border !border-[var(--chart-nav-border)] rounded-xl px-3 py-2 min-h-[54vh] overflow-y-auto overflow-x-hidden custom-scrollbar">
             <p class="text-[var(--text-color)] text-[14px] mb-2">
               RESULTANT PARAMETERS
             </p>
@@ -76,7 +75,7 @@
           <!-- CONTROL PARAMETERS -->
           <div class="flex-1" *ngIf="dataSource && dataSource.Control_Tags_Data.length > 0">
             <div
-              class="bg-[var(--dashboard-graph-bg)] rounded-xl px-3 py-2 h-[55vh] overflow-y-auto overflow-x-hidden custom-scrollbar">
+              class="bg-[var(--dashboard-graph-bg)] !border !border-[var(--chart-nav-border)] rounded-xl px-3 py-2 min-h-[54vh] overflow-y-auto overflow-x-hidden custom-scrollbar">
               <p class="text-[var(--text-color)] text-[14px] mb-2">
                 CONTROL PARAMETERS
               </p>
@@ -94,7 +93,7 @@
           <div class="text-3xl mb-3 zoom-animation">🔍</div>
 
           <!-- Title -->
-          <h2 class="text-lg font-semibold text-[var(--leftdrawer-text)] mb-2">
+          <h2 class="text-xl font-semibold text-[var(--leftdrawer-text)] mb-2">
             No Data Found
           </h2>
 
@@ -110,18 +109,17 @@
 
 <!-- modal component -->
 <ng-template #recommedationtemplate>
-  <div class="bg-[var(--bg-leftdrawer-footer)] rounded-md px-2 py-2 items-center justify-between w-[90vw]">
+  <div class="bg-[var(--bg-leftdrawer-footer)] rounded-md px-2.5 pb-3 items-center justify-between w-[90vw] mt-8">
     <div class="flex items-center justify-between mx-2">
-      <h4 class="text-[var(--text-color)] text-[15px] ml-2">
-        Acknowledge Recommendation(
-        {{ recommendationDate ? recommendationDate : "" }})
+      <h4 class="text-[var(--text-color)] text-[15px]">
+        Acknowledge Recommendation ({{ recommendationDate ? recommendationDate : "" }})
       </h4>
 
-      <button class="text-[var(--text-color)] cursor-pointer px-2 py-1" (click)="modalRef?.hide(); closeRecomPop()">
+      <button class="text-[var(--text-color)] cursor-pointer py-1 -mr-2 focus-ring:none" (click)="modalRef?.hide(); closeRecomPop()">
         <span class="material-symbols-outlined text-[22px]">close</span>
       </button>
     </div>
-    <div class="modal-body">
+    <div>
       <div class="row d-none">
         <div class="col-10">
           <div class="d-flex flex-column">
@@ -193,10 +191,10 @@
                   class="w-4 h-4 cursor-pointer accent-[var(--picker-accent)] align-center" />
               </td>
 
-              <td>
-                <mat-radio-group [(ngModel)]="item.actionTaken">
-                  <mat-radio-button [value]="true">Yes </mat-radio-button>
-                  <mat-radio-button [value]="false">No</mat-radio-button>
+              <td class="text-left">
+                <mat-radio-group [(ngModel)]="item.actionTaken" class="flex items-center gap-1">
+                  <mat-radio-button class="!m-0 !p-0" [value]="true">Yes</mat-radio-button>
+                  <mat-radio-button class="!m-0 !p-0" [value]="false">No</mat-radio-button>
                 </mat-radio-group>
               </td>
 
@@ -209,7 +207,7 @@
           </tbody>
           <tbody *ngIf="recommendationcheckData">
             <tr>
-              <td colspan="6" class="text-center">No Record Found</td>
+              <td colspan="6" class="text-center text-sm py-2">No Record Found</td>
             </tr>
           </tbody>
         </table>

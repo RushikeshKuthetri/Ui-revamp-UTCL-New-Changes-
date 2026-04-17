@@ -1119,13 +1119,13 @@ const AlertForBlaine = () => {
   const recepientCard = (val) => {
     // console.log(val, cardValues[val])
     return (
-      <div className="flex flex-col gap-2">
-        <label className="text-sm text-[var(--text-color)]">
+      <div className="flex flex-col -mt-2">
+        <label className="text-sm text-[var(--text-color)] -ml-1">
           Recipients <span className="text-danger"></span> :
         </label>
         <div className="flex flex-wrap gap-2 max-h-[80px] overflow-y-auto pr-1">
           {cardValues[val].reciepients.map((item) => (
-            <div className="flex items-center gap-2 px-2 py-1 text-xs rounded-md bg-[var(--submit-button-bg)] text-[#111111]" key={item}>
+            <div className="flex items-center gap-2 px-1.5 py-0.5 text-xs rounded-md bg-[var(--submit-button-bg)] text-[#111111]" key={item}>
               {item}
               <button
                 type="button"
@@ -1144,9 +1144,9 @@ const AlertForBlaine = () => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
           <input
-            className={`w-full !border rounded-md px-3 py-1.5 text-sm bg-[var(--input-enable-bg)] text-[var(--text-color)] focus:outline-none focus:border-[var(--submit-button-bg)]
+            className={`w-full mt-0.5 !border rounded-md px-2 py-1 text-[12px] bg-[var(--input-enable-bg)] text-[var(--text-color)] focus:outline-none focus:border-[var(--submit-button-bg)]
           ${cardValues[val].recipientInput !== "" && cardValues[val].recipientError !== ""
                 ? "border-red-500"
                 : "border-[var(--search-border)]"
@@ -1164,8 +1164,7 @@ const AlertForBlaine = () => {
                   tempCardValues[val].recipientError = "Invalid Email";
                 } else {
                   if (tempCardValues[val].reciepients.includes(value)) {
-                    tempCardValues[val].recipientError =
-                      "Already in List";
+                    tempCardValues[val].recipientError = "Already in List";
                   } else {
                     tempCardValues[val].reciepients.push(value);
                     tempCardValues[val].recipientInput = "";
@@ -1192,21 +1191,52 @@ const AlertForBlaine = () => {
             )}
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const alertCard = (val, index) => {
     // console.log(val, cardValues)
     return (
       <div
         key={index}
-        className="bg-[var(--alert-card-bg)] !border border-[var(--search-border)] rounded-2xl px-2 py-2 w-full flex flex-col gap-4 shadow-[var(--card-shadow)] hover:shadow-[var(--card-shadow-onhover)] transition-all duration-200"
+        className="bg-[var(--alert-card-bg)] !border !border-[var(--search-border)] gap-2 rounded-2xl px-2 pb-2 w-full flex flex-col shadow-[var(--card-shadow)] hover:shadow-[var(--card-shadow-onhover)] transition-all duration-200"
       >
-        <div className="flex flex-row gap-6 text-sm text-[var(--text-color)] font-medium">
-          <div> Plant : {cardValues[val].plant} </div>
-          <div> Mill : {cardValues[val].mill} </div>
+
+        <div className="flex items-center justify-between gap-4 text-sm text-[var(--text-color)] font-medium">
+          <div className="flex flex-row gap-6 text-sm text-[var(--text-color)] font-medium">
+            <div> Plant : {cardValues[val].plant} </div>
+            <div> Mill : {cardValues[val].mill} </div>
+          </div>
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <label className="relative mt-1 inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={cardValues[val].isActive}
+                onChange={(e) => {
+                  let tempCardValues = { ...cardValues };
+                  tempCardValues[val].isActive = e.target.checked;
+                  tempCardValues[val].isChanged = true;
+                  setCardValues(tempCardValues);
+                }}
+                className="sr-only peer"
+              />
+              <div className="
+        w-10 h-5 bg-[var(--alert-checkbox-bg)] rounded-full
+        peer-checked:bg-[var(--submit-button-bg)]
+        transition-colors duration-300
+    "/>
+
+              <div className="
+        absolute
+        w-4 h-4 bg-white rounded-full shadow 
+        transition-transform duration-300
+        left-2 peer-checked:translate-x-4
+      "/>
+            </label>
+          </div>
         </div>
-        <div className="flex items-center justify-between flex-nowrap w-full">
+
+        {/* <div className="flex items-center justify-between flex-nowrap w-full">
           <div className="flex items-center gap-2 whitespace-nowrap">
             <span className="text-sm text-[var(--text-color)]">Active Status:</span>
             <span
@@ -1243,11 +1273,11 @@ const AlertForBlaine = () => {
         peer-checked:translate-x-5
     "/>
           </label>
-        </div>
+        </div> */}
 
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium text-[var(--text-color)]">
-            Time Interval (in Minutes)
+        <div className="-mt-2 flex justify-between">
+          <label className="text-sm font-medium text-[var(--text-color)] whitespace-nowrap -ml-1">
+            Time Interval (in minutes)
           </label>
           <input
             name="TimeInterval"
@@ -1262,11 +1292,11 @@ const AlertForBlaine = () => {
               setCardValues(tempCardValues);
             }}
             value={cardValues[val].timeInterval}
-            className="h-9 w-full !border border-[var(--input-enable-border)] rounded-md px-3 text-sm bg-[var(--input-enable-bg)] text-[var(--text-color)] focus:outline-none focus:border-[var(--submit-button-bg)]"
+            className="w-28 h-6 !border border-[var(--input-enable-border)] rounded-md px-2 text-xs bg-[var(--input-enable-bg)] text-[var(--text-color)] focus:outline-none focus:border-[var(--submit-button-bg)]"
           />
         </div>
         {recepientCard(val)}
-        <div className="flex justify-center gap-4 mt-2">
+        <div className="flex justify-center gap-4">
           {cardValues[val].submitLoader && loader}
           <button
             className="text-[14px] px-3 py-1
@@ -1312,6 +1342,7 @@ disabled:opacity-50"
       </div>
     );
   };
+
   const getCompactSelectStyles = (hasError, isDisabled) => ({
     control: (base, state) => ({
       ...base,

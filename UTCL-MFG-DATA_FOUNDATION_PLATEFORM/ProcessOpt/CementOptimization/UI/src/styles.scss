@@ -832,7 +832,7 @@ body {
   --success-bg: #ecffeb;
   --success-text: #245f06;
   --success-border: #10b91b;
-  --dashboard-graph-bg: #E4E4E4;
+  --dashboard-graph-bg: #fefbf8;
   --alert-card-bg: #f3f4f6;
   --chart-card-border: #676363;
 
@@ -948,7 +948,6 @@ body {
   background: var(--bg-leftdrawer) !important;
   color: var(--text-color) !important;
   border: 1px solid var(--form-border) !important;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
   border-radius: 18px !important;
 }
 
@@ -985,6 +984,19 @@ body {
   background-color: rgba(0, 0, 0, 0.28) !important;
 }
 
+/* Remove default bootstrap shell for recommendation popup */
+.recommendation-modal .modal-content {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Keep only the custom template container visible */
+.recommendation-modal .modal-body {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
 //Process Optimization home page modal
 .modal-dialog {
   margin-left: 5vw !important;
@@ -1006,34 +1018,40 @@ ngx-gauge svg {
 }
 
 ngx-gauge .reading-block {
-  font-size: 11px !important;
-  position: absolute !important;
-  width: 80% !important;
-  left: 0 !important;
-  right: 0 !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  /* inline style override */
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: 0 !important;
-  margin: 0 !important;
+  font-size: 14px !important;
+  font-weight: 400;
   color: var(--text-color) !important;
+  text-anchor: middle;        /* horizontal center */
+  dominant-baseline: middle;  /* vertical alignment */
+
+  /* responsive-safe adjustment */
+  transform: translateY(6px);
 }
 
 ngx-gauge .reading-label {
   color: var(--text-color) !important;
+  font-size: 12px;
 }
 
-ngx-gauge .reading-affix {
-  font-size: 11px !important;
-  color: var(--text-color) !important;
-  display: block !important;
-  text-align: center !important;
+.mat-mdc-radio-button {
+  margin: 0 !important;
+  padding: 0 !important;
 }
+
+.mat-mdc-radio-touch-target {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.mdc-radio {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mdc-form-field {
+  margin: 0 !important;
+}
+
 
 /* SCROLLBAR STYLE */
 .custom-scrollbar {
@@ -2009,12 +2027,3 @@ span.owl-dt-calendar-cell-content.owl-dt-calendar-cell-selected {
   display: inline-flex !important;
   align-items: center !important;
 }
-
-// /* Force datepicker more below input */
-// .cdk-overlay-pane {
-//   transform: translateY(24px) !important; /* pehle 8px tha, ab 16px */
-// }
-
-// .cdk-overlay-connected-position-bounding-box {
-//   align-items: flex-start !important;
-// }

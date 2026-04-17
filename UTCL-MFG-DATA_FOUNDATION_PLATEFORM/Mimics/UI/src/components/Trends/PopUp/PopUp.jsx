@@ -51,7 +51,8 @@ export function PopUp({ children, heading, dispatchType }) {
           bottom-2
           left-1/2
           -translate-x-1/2
-          h-[40px]
+          text-sm
+          h-[38px]
           w-[180px]
           z-[1000]
           transition-all duration-300 ease-in-out

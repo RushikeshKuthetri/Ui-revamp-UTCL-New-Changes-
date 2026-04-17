@@ -317,15 +317,15 @@ export class GaugeComponents implements OnChanges {
 
         var centerTx = centerTranslation();
         // 🔥 VALUE TEXT (CENTER ME)
-        svg.append("text")
-          .attr("class", "gauge-value")
-          .attr("text-anchor", "middle")
-          .attr("x", r)
-          .attr("y", r + 80) // position adjust kar sakte ho
-          .text(newValue)
-          .style("font-size", "28px")
-          .style("font-weight", "600")
-          .style("fill", "var(--text-color)");
+        // svg.append("text")
+        //   .attr("class", "gauge-value")
+        //   .attr("text-anchor", "middle")
+        //   .attr("x", r)
+        //   .attr("y", r + 80) // position adjust kar sakte ho
+        //   .text(newValue)
+        //   .style("font-size", "28px")
+        //   .style("font-weight", "600")
+        //   .style("fill", "var(--text-color)");
 
         var arcs = svg.append('g')
           .attr('class', 'arc')
@@ -382,7 +382,7 @@ export class GaugeComponents implements OnChanges {
       }
       self.gaugemap.render = render;
       function update(newValue: any, newConfiguration?: any) {
-        svg.select(".gauge-value").text(newValue);
+        // svg.select(".gauge-value").text(newValue);
         if (newConfiguration !== undefined) {
           configure(newConfiguration);
         }

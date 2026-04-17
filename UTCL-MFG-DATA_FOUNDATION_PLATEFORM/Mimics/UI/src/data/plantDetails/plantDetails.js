@@ -1,3 +1,4 @@
+
 export const plantDetails = [
   // Baga
   {
@@ -5,7 +6,9 @@ export const plantDetails = [
     region: "North",
     name: "baga",
     category: "Plant",
-    path: "/baga",
+    // path: "/baga",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Baga",
+    openInNewTab: true,
     plantLines: true,
     lineHeading: ["UH", ""],
     sections: [
@@ -119,7 +122,9 @@ export const plantDetails = [
     region: "West",
     name: "gujarat",
     category: "Plant",
-    path: "/gujarat",
+    // path: "/gujarat",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Gujarat",
+    openInNewTab: true,
     plantLines: true,
     lineHeading: ["Line 1", "Line 2"],
     sections: [
@@ -654,7 +659,9 @@ export const plantDetails = [
     id: "VCW",
     region: "North",
     name: "vikram",
-    path: "/vikram",
+    // path: "/vikram",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Vikram",
+    openInNewTab: true,
     category: "Plant",
     plantLines: true,
     lineHeading: ["UH", "Line 1", "Line 2", "Line 3", "WHRS"],
@@ -817,7 +824,9 @@ export const plantDetails = [
     region: "Vidharbha",
     name: "awarpur",
     category: "Plant",
-    path: "/awarpur",
+    // path: "/awarpur",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Awarpur",
+    openInNewTab: true,
     sections: [
       {
         name: "CBA Mines",
@@ -846,9 +855,9 @@ export const plantDetails = [
     region: "East",
     category: "Plant",
     name: "rawan",
-    path: "/rawan",
-    // path: "https://prakriti.utclconnect.com/data/perspective/client/Rawan",
-    // openInNewTab: true,
+    // path: "/rawan",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Rawan",
+    openInNewTab: true,
     plantLines: true,
     lineHeading: ["Line 1", "Line 2", "Line 3"],
     sections: [
@@ -2423,7 +2432,9 @@ export const plantDetails = [
     region: "Central",
     name: "dalla",
     category: "Plant",
-    path: "/dalla",
+    // path: "/dalla",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Dalla",
+    openInNewTab: true
   },
   // Pali
   {
@@ -2548,7 +2559,9 @@ export const plantDetails = [
     region: "East",
     name: "hirmi",
     category: "Plant",
-    path: "/hirmi",
+    // path: "/hirmi",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Hirmi",
+    openInNewTab: true,
     plantLines: true,
     lineHeading: ["Line 1", "Line 2"],
     sections: [
@@ -2735,7 +2748,9 @@ export const plantDetails = [
     region: "Vidharbha",
     name: "manikgarh",
     category: "Plant",
-    path: "/manikgarh",
+    // path: "/manikgarh",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Manikgarh",
+    openInNewTab: true
   },
 
   // Centralised Dashboard- HO Project
@@ -2808,7 +2823,9 @@ export const plantDetails = [
     region: "North",
     name: "sikandrabad",
     category: "Plant",
-    path: "/sikandrabad",
+    // path: "/sikandrabad",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Sikandarabad",
+    openInNewTab: true,
     sections: [
       {
         name: "RP Finished Product Transport",

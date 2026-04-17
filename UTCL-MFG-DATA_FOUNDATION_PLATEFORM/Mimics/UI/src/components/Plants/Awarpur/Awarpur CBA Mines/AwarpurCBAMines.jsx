@@ -4,7 +4,7 @@ export const AwarpurCBAMines = () => {
   return (
     <div className="AwarpurCBAMines w-100 h-100 position-relative">
       <div className="position-absolute single-text-1">
-        <table>
+        <table className="cba-mines-table">
           <tr>
             <th>Sr No</th>
             <th>Name of element</th>
@@ -24,11 +24,11 @@ export const AwarpurCBAMines = () => {
             </th>
           </tr>
           <tr>
-            <td className="text-white">1</td>
+            <td className="text-[#B7C5C5] text-sm">1</td>
             <td>
               <TextContainerWithWrapWord
                 data={{
-                  useClass: "text-white mr-2",
+                  useClass: "text-[#B7C5C5] mr-2 text-sm",
                   label: "Tons",
                 }}
               />

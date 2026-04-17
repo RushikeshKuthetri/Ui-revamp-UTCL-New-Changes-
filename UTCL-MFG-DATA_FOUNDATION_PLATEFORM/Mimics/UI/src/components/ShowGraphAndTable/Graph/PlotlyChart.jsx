@@ -674,6 +674,7 @@ ${anchoredPoints
                     revision={revision}
                     data={traces.map((trace, index) => ({
                         ...trace,
+                        uid: CSS.escape(trace.uid || trace.tagUID), // ✅ ONLY THIS LINE
                         opacity: 0.6,
                         visible: trace.visible === false ? "legendonly" : true,
                         yaxis:

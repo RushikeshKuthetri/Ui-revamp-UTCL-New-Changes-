@@ -8,21 +8,26 @@
     h-full   cursor-pointer px-0.5
     hover:border-orange-500 hover:shadow-orange-500/40
     transition-all duration-200" (dblclick)="getBarData($event,item,i);openModal(template)">
-          <div class="text-[var(--text-color)] text-sm text-center
-truncate whitespace-nowrap overflow-hidden px-2 py-2" title="{{item.Process_Values}}">
+          <div class="text-[var(--text-color)] text-xl font-semibold text-center px-2 py-2" title="{{item.Process_Values}}">
             {{item.Process_Values.toFixed(2)}}
           </div>
-          <div class="text-[var(--text-color)] flex flex-col items-center h-[150px] mt-3" #myTestDiv>
-            <div id="{{'g'+i}}" class="m-t-11  chartDiv  text-[var(--text-color)] text-[12px]">
+          <div class="text-[var(--text-color)] flex flex-col items-center min-h-[160px] " #myTestDiv>
+            <div id="{{'g'+i}}" class="chartDiv  text-[var(--text-color)] text-md">
               <app-gauge-chart [value]="item.Process_Values" [min]="item.Min_Value" [max]="item.Max_Value"
                 [unit]="item.Unit"></app-gauge-chart>
             </div>
 
             <div class="value_span d-flex text-[var(--text-color)] text-[13px]">
-              <span title="{{item.Generic_Description}}">
+              <span title="{{item.Generic_Description}}" class="whitespace-normal break-words">
                 {{item.Generic_Description}}
               </span>
             </div>
+
+            <!-- <div class="value_span d-flex text-[var(--text-color)] text-[13px]">
+              <span title="{{item.Generic_Description}}">
+                {{item.Generic_Description}}
+              </span>
+            </div> -->
           </div>
 
         </div>

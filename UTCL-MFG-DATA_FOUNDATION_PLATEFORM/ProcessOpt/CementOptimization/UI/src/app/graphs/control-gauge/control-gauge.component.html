@@ -11,15 +11,17 @@
           {{ item.parameterName | removebrackets }}
         </span>
 
-        <!-- Gauge -->
-        <ngx-gauge [size]="110" type="arch" [thick]="11" [value]="item.actualValue.toFixed(2)"
-          [max]="item.actualValue + 250" cap="round" [append]="item.unitofmeasurement"
-          [foregroundColor]="item.foregroundColor" [backgroundColor]="'var(--dashboard-graph-bg)'"
-          class="!w-full justify-center"></ngx-gauge>
+        <div class="relative flex items-center justify-center">
+          <!-- Gauge -->
+          <ngx-gauge [size]="110" type="arch" [thick]="11" [value]="item.actualValue.toFixed(2)"
+            [max]="item.actualValue + 250" cap="round" [append]="item.unitofmeasurement"
+            [foregroundColor]="item.foregroundColor" [backgroundColor]="'var(--dashboard-graph-bg)'"
+            class="!w-full justify-center"></ngx-gauge>
+        </div>
 
         <!-- Hover tooltip hint -->
         <span
-          class="absolute bottom-1 right-2 text-[9px] text-center text-[var(--text-color)] opacity-0 group-hover:opacity-40 transition-opacity duration-200">
+          class="absolute mt-2 bottom-1 right-2 text-[9px] text-center text-[var(--text-color)] opacity-0 group-hover:opacity-40 transition-opacity duration-200">
 
           double click for history
         </span>

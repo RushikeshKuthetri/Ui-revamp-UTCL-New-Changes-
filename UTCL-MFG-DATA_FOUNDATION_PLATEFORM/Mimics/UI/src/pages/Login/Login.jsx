@@ -19,7 +19,7 @@ export const Login = () => {
       {sessionStorage.getItem("SLOG") !== "SLOG" ? (
         <div
           className="fixed inset-0 w-screen h-screen flex items-center justify-end bg-no-repeat bg-cover bg-center"
-          style={{ backgroundImage: "url(\login1.png)" }}
+          style={{ backgroundImage: "url(login1.png)" }}
         >
           <div
             className="absolute 
