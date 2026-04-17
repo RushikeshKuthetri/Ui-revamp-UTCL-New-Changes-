@@ -431,6 +431,10 @@ body {
   padding: 2px 8px !important;
 }
 
+.react-select__multi-value__remove svg {
+  color: var(--text-color) !important;
+  fill: var(--text-color) !important;
+}
 /* INPUT + VALUE */
 .react-select__single-value,
 .react-select__input-container {
@@ -438,8 +442,9 @@ body {
 }
 
 /* PLACEHOLDER */
-.react-select__placeholder {
-  color: #9ca3af !important;
+.react-select__control .react-select__placeholder {
+  color: var(--search-placeholder) !important;
+  font-size: 12px !important;
 }
 
 /* MULTI SELECT TAG */

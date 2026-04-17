@@ -741,21 +741,52 @@ export const EmailTemplate = () => {
                 Recipients <span className="text-red-500">*</span>
               </label>
 
-              <div className="flex flex-wrap">
+            {/* <div className="flex flex-wrap">
                 {recipient.map((item) => (
                   <div
                     key={item}
                     className="
                     rounded-md
-                    text-sm
-                    bg-[var(--button-bg)]
-                    border border-[var(--form-border)]
+                    text-[12px] mb-[2px] px-1 mx-[1px]
+                    bg-[var(--submit-button-bg)] text-[#111111]
+                    !border !border-[var(--form-border)]
                   "
                   >
                     {item}
                   </div>
                 ))}
-              </div>
+              </div> */}
+
+              <div className="flex flex-wrap gap-[2px]">
+  {recipient.map((item) => (
+    <div
+      key={item}
+      className="
+      flex items-center gap-1
+      rounded-md
+      text-[12px] mb-[2px] px-1 mx-[1px]
+      bg-[var(--submit-button-bg)] text-[#111111]
+      !border !border-[var(--form-border)]
+    "
+    >
+      <span>{item}</span>
+
+      <button
+        type="button"
+        onClick={() => handleDeleteEmail(item)}
+        className="
+        text-[10px]
+        font-extrabold
+        text-black mt-[1px]
+        ml-[2px] text-center
+        cursor-pointer
+      "
+      >
+        ✕
+      </button>
+    </div>
+  ))}
+</div>
 
               <input
                 value={recipientInput}
@@ -776,7 +807,9 @@ export const EmailTemplate = () => {
                 placeholder:text-[var(--search-placeholder)] placeholder:text-[13px]
               "
               />
+                
             </div>
+            
           </div>
 
           {/* NOTE SECTION */}

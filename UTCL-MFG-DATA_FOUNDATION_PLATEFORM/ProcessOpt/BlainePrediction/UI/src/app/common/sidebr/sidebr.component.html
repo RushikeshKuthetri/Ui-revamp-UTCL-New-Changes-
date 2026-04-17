@@ -17,7 +17,7 @@
       <!-- ══════════════════════════════════════════════════════════ -->
       <!-- SIDEBAR                                                    -->
       <!-- ══════════════════════════════════════════════════════════ -->
-      <div class="fixed top-[68px] left-0 z-40  h-[calc(100dvh-98px)] overflow-y-auto flex flex-col rounded-r-3xl
+      <div class="fixed top-[68px] left-0 z-40  h-[calc(100dvh-98px)] overflow-y-auto overflow-x-hidden flex flex-col rounded-r-3xl
  
            bg-[var(--bg-leftdrawer)] [box-shadow:var(--left-drawer-shadow)]
  
@@ -34,15 +34,16 @@
                   </button>
             </div>
             <!-- ── MENU LIST ────────────────────────────────────────── -->
-            <div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-1 mt-2" [class.px-3]="!collapsed"
+            <div class="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col gap-1 mt-2" [class.px-3]="!collapsed"
                   [class.px-2]="collapsed" [class.items-center]="collapsed">
                   <ng-container *ngFor="let item of filteredMenu; let i = index">
                         <div>
                               <!-- ── PARENT MENU ITEM ──────────────────────────── -->
-                              <div class="flex items-center py-2 rounded-xl transition-all cursor-pointer"
-                                    [class.justify-center]="collapsed" [class.px-2]="collapsed"
-                                    [class.px-3]="!collapsed" [class.pr-2]="!collapsed" [class.gap-3]="!collapsed"
-                                    [ngClass]="{
+                              <div class="flex items-center py-2 rounded-xl transition-all cursor-pointer relative"
+                                    (mouseenter)="hoveredItem = item.name; setTooltipPosition($event)"
+                                    (mouseleave)="hoveredItem = null" [class.justify-center]="collapsed"
+                                    [class.px-2]="collapsed" [class.px-3]="!collapsed" [class.pr-2]="!collapsed"
+                                    [class.gap-3]="!collapsed" [ngClass]="{
  
               'bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold': !item.hasDropdown && isActiveRoute(item.path),
  
@@ -314,6 +315,23 @@
             <!-- /FOOTER -->
       </div>
       <!-- /SIDEBAR -->
+
+      <!-- Tooltip Overlay (outside scroll container to prevent horizontal scrollbar) -->
+      <div *ngIf="collapsed && hoveredItem"
+            class="fixed z-[10000] pointer-events-none -translate-y-1/2"
+            [style.top.px]="tooltipPosition.top"
+            [style.left.px]="tooltipPosition.left">
+            <div class="absolute -left-[6px] top-1/2 -translate-y-1/2
+            w-0 h-0 border-t-[6px] border-b-[6px]
+            border-t-transparent border-b-transparent
+            border-r-[6px] border-r-[var(--bg-leftdrawer)]">
+            </div>
+
+            <div class="bg-[var(--bg-leftdrawer)] !border !border-[var(--left-drawer-footer-border)]
+            rounded-xl shadow-md px-3 py-2 text-sm whitespace-nowrap text-[var(--leftdrawer-text)]">
+                  {{ hoveredItem }}
+            </div>
+      </div>
 </ng-container>
 <!-- ══════════════════════════════════════════════════════════════ -->
 <!-- ICON TEMPLATE — maps icon name string → inline SVG           -->

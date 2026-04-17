@@ -1459,7 +1459,7 @@ export const ReportsPage = () => {
               navigate("/reportList");
             }}
           >
-            Back
+           Report List
           </button>
         </div>
         <div className="w-full rounded-2xl !border !border-[var(--form-border)] p-2 mt-1">

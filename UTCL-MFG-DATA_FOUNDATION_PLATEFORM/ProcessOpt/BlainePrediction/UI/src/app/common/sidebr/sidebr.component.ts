@@ -13,6 +13,7 @@ export interface MenuItem {
   moduleKey?: string;     // NEW
   roles?: string[];       // NEW
   openInNewTab?: boolean; // NEW
+  
 
 }
 
@@ -199,6 +200,18 @@ export class SidebrComponent implements OnInit {
     this.applyMenuFiltering();
   }
 
+  hoveredItem: string | null = null;
+  tooltipPosition = { top: 0, left: 0 };
+
+  setTooltipPosition(event: MouseEvent) {
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+
+    this.tooltipPosition = {
+      top: rect.top + rect.height / 2,
+      left: rect.right + 8,
+    };
+  }
+
   applyMenuFiltering(): void {
 
     this.filteredMenu = this.menuItems
@@ -297,16 +310,31 @@ export class SidebrComponent implements OnInit {
     return !!this.openDropdowns[key];
   }
 
-  handleParentClick(item: MenuItem): void {
-    if (!item.hasDropdown) return;
-    if (this.collapsed) {
-      this.collapsedChange.emit(false);
-      setTimeout(() => this.toggleDropdown(item.name), 310);
-    } else {
-      this.toggleDropdown(item.name);
-    }
-  }
+  // handleParentClick(item: MenuItem): void {
+  //   if (!item.hasDropdown) return;
+  //   if (this.collapsed) {
+  //     this.collapsedChange.emit(false);
+  //     setTimeout(() => this.toggleDropdown(item.name), 310);
+  //   } else {
+  //     this.toggleDropdown(item.name);
+  //   }
+  // }
 
+  handleParentClick(item: MenuItem): void {
+  if (!item.hasDropdown) return;
+
+  if (this.collapsed) {
+    this.collapsedChange.emit(false);
+
+    // Wait for DOM update (Angular equivalent of React re-render)
+    setTimeout(() => {
+      this.openDropdowns[item.name] = true;
+    }, 0);
+
+  } else {
+    this.toggleDropdown(item.name);
+  }
+}
   getCurvedPath(): string {
     const spineX = VERTICAL_LINE_X;
     const radius = 10;
