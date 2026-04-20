@@ -280,10 +280,64 @@ export class SidebrComponent implements OnInit {
     }
   }
 
+// local
+// isActiveRoute(path?: string): boolean {
+//   if (!path) return false;
 
-  isActiveRoute(path: string): boolean {
-    return !!path && this.currentPath === path;
+//   try {
+//     const url = new URL(path);
+
+//     // ✅ Handle hash routes properly
+//     if (url.hash) {
+//       const currentHash = window.location.hash.replace('#', '');
+//       const targetHash = url.hash.replace('#', '');
+
+//       return currentHash === targetHash;
+//     }
+
+//     // ✅ Normal route match
+//     return (
+//       window.location.origin === url.origin &&
+//       window.location.pathname === url.pathname
+//     );
+
+//   } catch {
+//     return false;
+//   }
+// }
+
+
+//Prod
+isActiveRoute(path?: string): boolean {
+  if (!path) return false;
+
+  try {
+    const url = new URL(path);
+
+    const currentHash = window.location.hash;        // #/home
+    const currentPath = window.location.pathname;    // /kiln/ OR /cement/ OR /
+
+    const targetHash = url.hash;                     // #/home
+    const targetPath = url.pathname;                 // /kiln/ OR /cement/ OR /blaine/
+
+    // ✅ Case 1: Hash-based routes (ALL: kiln, cement, blaine)
+    if (targetHash) {
+      return (
+        currentHash === targetHash &&
+        currentPath.includes(targetPath)
+      );
+    }
+
+    // ✅ Case 2: Normal routes
+    return (
+      window.location.origin === url.origin &&
+      currentPath === targetPath
+    );
+
+  } catch {
+    return window.location.href.includes(path);
   }
+}
 
   // ✅ Delegates fully to ThemeService
   toggleTheme(): void {
@@ -360,3 +414,4 @@ export class SidebrComponent implements OnInit {
     return `${SVG_HEIGHT}px`;
   }
 }
+ 

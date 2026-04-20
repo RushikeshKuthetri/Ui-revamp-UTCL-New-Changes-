@@ -170,10 +170,10 @@ const menuItems = [
             },
         ],
     },
-       {
+    {
         name: "Help",
         icon: IoHelpCircleOutline,
-           path: "/mimics/help",
+        path: "/mimics/help",
         moduleKey: "Mimics",
         openInNewTab: false
     },
@@ -200,14 +200,14 @@ const menuItems = [
         ],
     }
 ];
- 
+
 // ── Tree connector dimensions ─────────────────────────────────────
 const SPINE_X = 8;    // x-position of the vertical part of the L
-const ITEM_H  = 32;   // height of each item row
-const LINE_W  = 1.5;
-const RADIUS  = 10;    // corner radius of the L-curve
-const SVG_W   = 20;   // width of the connector SVG
- 
+const ITEM_H = 32;   // height of each item row
+const LINE_W = 1.5;
+const RADIUS = 10;    // corner radius of the L-curve
+const SVG_W = 20;   // width of the connector SVG
+
 /**
  * TreeConnector
  *
@@ -215,9 +215,9 @@ const SVG_W   = 20;   // width of the connector SVG
  * isLast = false → T-junction (full vertical spine + horizontal branch at midY)
  */
 function TreeConnector({ lineColor, isLast }) {
-    const midY        = ITEM_H / 2;
+    const midY = ITEM_H / 2;
     const curveStartY = midY - RADIUS;
- 
+
     return (
         <svg
             width={SVG_W}
@@ -270,12 +270,12 @@ function TreeConnector({ lineColor, isLast }) {
 
 function Tooltip({ label, childItems, visible, anchorRef }) {
     if (!visible) return null;
- 
+
     const rect = anchorRef?.current?.getBoundingClientRect();
     if (!rect) return null;
     const tooltipTop = (rect.top - 65) + window.scrollY + rect.height / 2;
     const tooltipLeft = rect.right + 10;
- 
+
     return (
         <div
             style={{
@@ -289,18 +289,18 @@ function Tooltip({ label, childItems, visible, anchorRef }) {
         >
             {/* Arrow pointing left */}
             <div
-                // style={{
-                //     position: "absolute",
-                //     right: "100%",
-                //     top: "50%",
-                //     transform: "translateY(-50%)",
-                //     width: 0,
-                //     height: 0,
-                //     borderTop: "6px solid transparent",
-                //     borderBottom: "6px solid transparent",
-                //     borderRight: "6px solid var(--bg-leftdrawer, #fff)",
-                //     filter: "drop-shadow(-1px 0 0 rgba(0,0,0,0.08))",
-                // }}
+            // style={{
+            //     position: "absolute",
+            //     right: "100%",
+            //     top: "50%",
+            //     transform: "translateY(-50%)",
+            //     width: 0,
+            //     height: 0,
+            //     borderTop: "6px solid transparent",
+            //     borderBottom: "6px solid transparent",
+            //     borderRight: "6px solid var(--bg-leftdrawer, #fff)",
+            //     filter: "drop-shadow(-1px 0 0 rgba(0,0,0,0.08))",
+            // }}
             />
             <div
                 className="bg-[var(--bg-leftdrawer)] !border !border-[color:var(--left-drawer-footer-border)] rounded-xl shadow-md "
@@ -310,7 +310,7 @@ function Tooltip({ label, childItems, visible, anchorRef }) {
                 <div className="px-2.5 py-2 text-sm font-medium text-[var(--text-color)] whitespace-nowrap overflow-hidden text-ellipsis">
                     {label}
                 </div>
- 
+
                 {/* Children list */}
                 {/* {childItems?.length > 0 && (
                     <>
@@ -331,7 +331,7 @@ function Tooltip({ label, childItems, visible, anchorRef }) {
         </div>
     );
 }
- 
+
 export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
     const [theme, setTheme] = useState("light");
     const [mounted, setMounted] = useState(false);
@@ -343,21 +343,21 @@ export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
     //         return {};
     //     }
     // });
-  const [openDropdowns, setOpenDropdowns] = useState(() => {
-    try {
-        const saved = localStorage.getItem("openDropdowns");
-        const parsed = saved ? JSON.parse(saved) : {};
-        
-        // ✅ Agar current URL /admin/ se start ho, Admin dropdown force open karo
-        if (window.location.pathname.startsWith("/admin/")) {
-            parsed["Admin"] = true;
+    const [openDropdowns, setOpenDropdowns] = useState(() => {
+        try {
+            const saved = localStorage.getItem("openDropdowns");
+            const parsed = saved ? JSON.parse(saved) : {};
+
+            // ✅ Agar current URL /admin/ se start ho, Admin dropdown force open karo
+            if (window.location.pathname.startsWith("/admin/")) {
+                parsed["Admin"] = true;
+            }
+
+            return parsed;
+        } catch (err) {
+            return {};
         }
-        
-        return parsed;
-    } catch (err) {
-        return {};
-    }
-});
+    });
     const itemRefs = useRef({});
     const menuContainerRef = useRef(null);
     const currentPath = window.location.pathname;
@@ -370,11 +370,11 @@ export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
     const navigate = useNavigate();
     const [hoveredItem, setHoveredItem] = useState(null);
     const lineColor = theme === "dark" ? "#7E8383" : "#9FACAC";
- 
+
     useEffect(() => {
         localStorage.setItem("openDropdowns", JSON.stringify(openDropdowns));
     }, [openDropdowns]);
- 
+
     const normalizePath = (path) => path?.replace(/\/+$|\?[^#]*$/, "") || "";
     const normalizeDataPath = (path) => normalizePath(path || "");
 
@@ -397,17 +397,17 @@ export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
         }
     }, [location.pathname, mounted]);
 
-     
+
     const scrollToItem = (name, align = "end") => {
         const el = itemRefs.current[name];
         const container = menuContainerRef.current;
- 
+
         if (!el || !container) return;
- 
+
         const containerRect = container.getBoundingClientRect();
         const elRect = el.getBoundingClientRect();
         const relativeTop = elRect.top - containerRect.top + container.scrollTop;
- 
+
         let targetTop;
         if (align === "center") {
             targetTop = relativeTop - container.clientHeight / 2 + elRect.height / 2;
@@ -416,43 +416,43 @@ export default function LeftDrawer({ open, setOpen, collapsed, setCollapsed }) {
         } else {
             targetTop = relativeTop - container.clientHeight + elRect.height + 24;
         }
- 
+
         container.scrollTo({
             top: Math.max(0, targetTop),
             behavior: "smooth",
         });
     };
 
-useEffect(() => {
-    if (!mounted) return;
+    useEffect(() => {
+        if (!mounted) return;
 
-    const currentPath = normalizePath(location.pathname);
-    if (!currentPath.startsWith("/admin/")) return;
-    if (!openDropdowns["Admin"]) return;
+        const currentPath = normalizePath(location.pathname);
+        if (!currentPath.startsWith("/admin/")) return;
+        if (!openDropdowns["Admin"]) return;
 
-    const scrollToActive = () => {
-        const container = document.querySelector(".flex-1.overflow-y-auto");
-        if (!container) return;
+        const scrollToActive = () => {
+            const container = document.querySelector(".flex-1.overflow-y-auto");
+            if (!container) return;
 
-        const activeItems = Array.from(container.querySelectorAll("[data-path]"));
-        const activeItem = activeItems.find((el) => {
-            const itemPath = normalizeDataPath(el.getAttribute("data-path"));
-            return itemPath === currentPath;
-        });
-
-        if (activeItem) {
-            activeItem.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-                inline: "nearest"
+            const activeItems = Array.from(container.querySelectorAll("[data-path]"));
+            const activeItem = activeItems.find((el) => {
+                const itemPath = normalizeDataPath(el.getAttribute("data-path"));
+                return itemPath === currentPath;
             });
-        } else {
-            setTimeout(scrollToActive, 150);
-        }
-    };
 
-    setTimeout(scrollToActive, 150);
-}, [openDropdowns["Admin"], mounted, location.pathname]);
+            if (activeItem) {
+                activeItem.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                    inline: "nearest"
+                });
+            } else {
+                setTimeout(scrollToActive, 150);
+            }
+        };
+
+        setTimeout(scrollToActive, 150);
+    }, [openDropdowns["Admin"], mounted, location.pathname]);
 
 
 
@@ -531,7 +531,7 @@ useEffect(() => {
             if (item.children && item.children.length === 0) return false;
             return true;
         });
- 
+
     return (
         <>
             {/* MOBILE HAMBURGER */}
@@ -543,7 +543,7 @@ useEffect(() => {
                     <FaBars size={20} />
                 </button>
             )}
- 
+
             {/* BACKDROP */}
             {mobileOpen && (
                 <div
@@ -551,7 +551,7 @@ useEffect(() => {
                     onClick={() => setMobileOpen(false)}
                 />
             )}
- 
+
             {/* SIDEBAR */}
             <div className={`
                 fixed top-18 left-0 z-40 mt-2
@@ -567,16 +567,16 @@ useEffect(() => {
                 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
                 lg:translate-x-0
             `}>
- 
+
                 {/* MOBILE CLOSE BUTTON */}
                 <div className="lg:hidden flex justify-end pt-3 pr-3 -mb-2">
                     <button onClick={() => setMobileOpen(false)}>
                         <FaTimes size={20} className="text-[var(--text-color)]" />
                     </button>
                 </div>
- 
+
                 {/* MENU */}
-               <div className={`flex-1 flex flex-col gap-1 mt-2 min-h-0 ${collapsed ? "px-1" : "px-3"}`}>
+                <div className={`flex-1 flex flex-col gap-1 mt-2 min-h-0 ${collapsed ? "px-1" : "px-3"}`}>
                     <div ref={menuContainerRef} className="flex-1 overflow-y-auto flex flex-col gap-1">
                         {filteredMenu.map((item, index) => {
                             const Icon = item.icon;
@@ -584,8 +584,11 @@ useEffect(() => {
                             const dropdownOpen = isDropdownOpen(item.name);
                             // Paths that have their own dedicated nav items (should NOT activate Mimics)
                             const isActive =
-                                item.activePaths?.some(p => currentPath.startsWith(p)) ||
-                                (item.path && currentPath === item.path);
+                                item.activePaths?.some(p =>
+                                    normalizePath(currentPath).startsWith(normalizePath(p))
+                                ) ||
+                                (item.path &&
+                                    normalizePath(currentPath) === normalizeDataPath(item.path));
 
 
                             return (
@@ -651,7 +654,8 @@ useEffect(() => {
                                                 const nestedKey = `${item.name}_${child.name}`;
                                                 const nestedOpen = isDropdownOpen(nestedKey);
                                                 const isLast = childIndex === item.children.length - 1;
-                                                const isChildActive = currentPath === child.path;
+                                                const isChildActive =
+                                                    normalizePath(currentPath) === normalizeDataPath(child.path);
 
                                                 return (
                                                     <div key={childIndex} className="flex flex-col">
@@ -700,7 +704,8 @@ useEffect(() => {
                                                                 )}
                                                                 {child.children.map((grandchild, gcIndex) => {
                                                                     const gcIsLast = gcIndex === child.children.length - 1;
-                                                                    const isGrandchildActive = currentPath === grandchild.path;
+                                                                    const isGrandchildActive =
+                                                                        normalizePath(currentPath) === normalizeDataPath(grandchild.path);
                                                                     return (
                                                                         <div
                                                                             key={gcIndex}
@@ -733,7 +738,7 @@ useEffect(() => {
                         })}
                     </div>
                 </div>
- 
+
                 {/* FOOTER */}
                 <div className="px-3 pb-2">
                     <div className={`
@@ -753,7 +758,7 @@ useEffect(() => {
                                 <Moon size={20} className="cursor-pointer text-[var(--text-color)]" />
                             )}
                         </button>
- 
+
                         {/* Collapse */}
                         <button
                             onClick={() => setCollapsed(prev => !prev)}
@@ -765,7 +770,7 @@ useEffect(() => {
                                 <PanelLeftClose size={20} />
                             )}
                         </button>
- 
+
                         {/* Power */}
                         <Power size={20} className="cursor-pointer text-[var(--text-color)] outline-none focus:outline-none focus:ring-0" />
                     </div>
@@ -774,4 +779,3 @@ useEffect(() => {
         </>
     );
 }
- 

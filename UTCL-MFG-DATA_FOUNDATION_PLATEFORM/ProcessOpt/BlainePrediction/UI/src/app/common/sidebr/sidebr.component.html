@@ -173,12 +173,12 @@
                                                                   <div class="py-[6.4px] px-2 rounded-lg transition-all text-sm truncate"
                                                                         [ngClass]="{
  
-                          'bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold': currentPath === child.path,
+                          'bg-[var(--left-drawer-active-tab)] !text-[#111111] ': isActiveRoute(child.path),
  
                           'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': currentPath !== child.path
  
                         }">
-
+ 
                                                                         {{ child.name }}
                                                                   </div>
                                                             </div>
@@ -188,7 +188,7 @@
                                                 <!-- ── LEVEL-2 NESTED CHILDREN ─────────────── -->
                                                 <div *ngIf="child.hasDropdown && isDropdownOpen(item.name + '__' + child.name)"
                                                       class="flex flex-col relative" [style.margin-left.px]="SVG_WIDTH">
-
+ 
                                                       <!-- Connecting line sirf tab jab ci last nahi ho -->
                                                       <div *ngIf="ci !== item.children!.length - 1" class="absolute"
                                                             [style.left.px]="-SVG_WIDTH + VERTICAL_LINE_X"
@@ -196,7 +196,7 @@
                                                             [style.height]="getVerticalLineHeight(child, isDropdownOpen(item.name + '__' + child.name))"
                                                             [style.width.px]="1" [style.background-color]="lineColor">
                                                       </div>
-
+ 
                                                       <ng-container
                                                             *ngFor="let grandchild of child.children; let gi = index">
                                                             <div class="relative flex flex-col">
@@ -315,7 +315,7 @@
             <!-- /FOOTER -->
       </div>
       <!-- /SIDEBAR -->
-
+ 
       <!-- Tooltip Overlay (outside scroll container to prevent horizontal scrollbar) -->
       <div *ngIf="collapsed && hoveredItem"
             class="fixed z-[10000] pointer-events-none -translate-y-1/2"
@@ -326,7 +326,7 @@
             border-t-transparent border-b-transparent
             border-r-[6px] border-r-[var(--bg-leftdrawer)]">
             </div>
-
+ 
             <div class="bg-[var(--bg-leftdrawer)] !border !border-[var(--left-drawer-footer-border)]
             rounded-xl shadow-md px-3 py-2 text-sm whitespace-nowrap text-[var(--leftdrawer-text)]">
                   {{ hoveredItem }}
@@ -405,3 +405,5 @@
             </svg>
       </ng-container>
 </ng-template>
+ 
+ 

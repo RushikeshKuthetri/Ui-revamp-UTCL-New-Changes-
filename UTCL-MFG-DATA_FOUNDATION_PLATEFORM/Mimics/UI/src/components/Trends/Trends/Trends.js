@@ -69,7 +69,7 @@ export const Trends = () => {
                     />
                 </div>
                 {/* To avoid overflow in TrendFilterCard added style here */}
-                <div className="overflow-y-auto h-[85vh]">
+                <div className=" h-[70vh]">
                     <Graph />
                 </div>
             </div>

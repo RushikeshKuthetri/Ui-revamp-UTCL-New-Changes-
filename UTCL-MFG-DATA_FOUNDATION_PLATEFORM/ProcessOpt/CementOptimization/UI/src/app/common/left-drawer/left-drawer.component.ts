@@ -157,6 +157,7 @@ export class LeftDrawerComponent implements OnInit {
 
   modules: string[] = [];
   role: string = '';
+  
 
   openDropdowns: Record<string, boolean> = {};
 
@@ -174,6 +175,12 @@ export class LeftDrawerComponent implements OnInit {
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((e: any) => (this.currentPath = e.urlAfterRedirects));
+
+        window.addEventListener('hashchange', () => {
+    // Trigger change detection
+    this.currentPath = this.router.url;
+    //  this.cdr.detectChanges();
+  });
   }
 
   ngOnInit(): void {
@@ -199,6 +206,20 @@ export class LeftDrawerComponent implements OnInit {
 
     this.applyMenuFiltering();
   }
+
+    hoveredItem: string | null = null;
+  tooltipPosition = { top: 0, left: 0 };
+
+  setTooltipPosition(event: MouseEvent) {
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+
+    this.tooltipPosition = {
+      top: rect.top + rect.height / 2,
+      left: rect.right + 8,
+    };
+  }
+
+
   applyMenuFiltering(): void {
 
     this.filteredMenu = this.menuItems
@@ -245,6 +266,9 @@ export class LeftDrawerComponent implements OnInit {
       });
   }
 
+
+  
+
   handleNavigation(item: MenuItem): void {
 
     console.log("Clicked menu:", item);
@@ -266,10 +290,71 @@ export class LeftDrawerComponent implements OnInit {
       window.location.href = fullUrl;
     }
   }
+// local
+// isActiveRoute(path?: string): boolean {
+//   if (!path) return false;
 
-  isActiveRoute(path?: string): boolean {
-    return !!path && this.currentPath === path;
+//   try {
+//     const url = new URL(path);
+
+//     const currentHash = window.location.hash;
+//     const currentPath = window.location.pathname;
+
+//     // ✅ Extract base path from menu URL (like /blaine/)
+//     const menuPath = url.pathname;
+
+//     // ✅ Case 1: Hash route + module match
+//     if (url.hash) {
+//       return (
+//         currentHash === url.hash &&
+//         currentPath.includes(menuPath) // VERY IMPORTANT
+//       );
+//     }
+
+//     // ✅ Case 2: Normal route
+//     return (
+//       currentPath === menuPath &&
+//       window.location.origin === url.origin
+//     );
+
+//   } catch {
+//     return window.location.href.includes(path);
+//   }
+// }
+
+// Production
+isActiveRoute(path?: string): boolean {
+  if (!path) return false;
+
+  const currentHash = window.location.hash;        // #/recommendationsList
+  const currentPathname = window.location.pathname; // /kiln/ or /cement/ or /
+
+  try {
+    const url = new URL(path);
+
+    const menuHash = url.hash;       // #/recommendationsList
+    const menuPath = url.pathname;   // /kiln/ or /cement/ or /
+
+    // ✅ Case 1: Hash आधारित route (MOST IMPORTANT)
+    if (menuHash) {
+      const hashMatch = currentHash === menuHash;
+
+      // 🔥 If module मौजूद है (kiln/cement/blaine)
+      if (menuPath && menuPath !== '/') {
+        return hashMatch && currentPathname.startsWith(menuPath);
+      }
+
+      // Dev case → no module path
+      return hashMatch;
+    }
+
+    // ✅ Case 2: Non-hash route
+    return currentPathname === menuPath;
+
+  } catch {
+    return window.location.href.includes(path);
   }
+}
 
   toggleTheme(): void {
     this.theme = this.theme === 'dark' ? 'light' : 'dark';
@@ -318,9 +403,10 @@ export class LeftDrawerComponent implements OnInit {
   }
 
   isChildActive(children: MenuItem[] = [], currentPath: string): boolean {
-    return children.some(
-      (c) => currentPath === c.path || this.isChildActive(c.children ?? [], currentPath)
-    );
+    return children.some(c => {
+    if (this.isActiveRoute(c.path)) return true;
+    return this.isChildActive(c.children ?? [], currentPath);
+  });
   }
 
   getVerticalLineHeight(child: MenuItem, nestedOpen: boolean): string {
