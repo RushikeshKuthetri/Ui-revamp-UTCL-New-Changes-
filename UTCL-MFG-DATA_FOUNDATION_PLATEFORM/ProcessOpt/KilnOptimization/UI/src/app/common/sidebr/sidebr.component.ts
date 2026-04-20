@@ -167,8 +167,12 @@ export class SidebrComponent implements OnInit {
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((e: any) => (this.currentPath = e.urlAfterRedirects));
+      window.addEventListener('hashchange', () => {
+    // Trigger change detection
+    this.currentPath = this.router.url;
+    //  this.cdr.detectChanges();
+  });
   }
-
   // ✅ ONLY theme source — reads from ThemeService
   get theme(): string {
     return this.themeService.current;
@@ -197,6 +201,18 @@ export class SidebrComponent implements OnInit {
     }
 
     this.applyMenuFiltering();
+  }
+
+      hoveredItem: string | null = null;
+  tooltipPosition = { top: 0, left: 0 };
+
+  setTooltipPosition(event: MouseEvent) {
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+
+    this.tooltipPosition = {
+      top: rect.top + rect.height / 2,
+      left: rect.right + 8,
+    };
   }
 
   applyMenuFiltering(): void {
@@ -266,12 +282,104 @@ export class SidebrComponent implements OnInit {
     }
   }
 
+ //FOR LOCAL
+//   isActiveRoute(path?: string): boolean {
+//   if (!path) return false;
 
-  isActiveRoute(path: string): boolean {
-    return !!path && this.currentPath === path;
-  }
+//   try {
+//     // Extract hash fragment from full URL (e.g. "https://.../cement/#/home" → "#/home")
+//     const url = new URL(path);
+//     const menuHash = url.hash; // e.g. "#/home"
+
+//     if (menuHash) {
+//       // Compare hash fragment with current window hash
+//       return window.location.hash === menuHash;
+//     }
+//   } catch {
+//     // path is a relative path — fall back to router currentPath
+//   }
+
+//   return this.currentPath === path;
+// }
+
+// isActiveRoute(path?: string): boolean {
+//   if (!path) return false;
+
+//   const currentUrl = window.location.href;
+
+//   try {
+//     const url = new URL(path);
+
+//     // ✅ Case 1: hash-based route (/#/home)
+//     if (url.hash) {
+//       return currentUrl.includes(url.hash);
+//     }
+
+//     // ✅ Case 2: full URL match (mimics etc.)
+//     return currentUrl.startsWith(url.origin + url.pathname);
+//   } catch {
+//     // ✅ Case 3: relative path (Angular routes)
+//     return currentUrl.includes(path);
+//   }
+// }
+// isActiveRoute(path?: string): boolean {
+//   if (!path) return false;
+
+//   try {
+//     const url = new URL(path);
+
+//     // ✅ STRICT hash match (fix for kiln/cement issue)
+//     if (url.hash) {
+//       return window.location.hash === url.hash;
+//     }
+
+//     // ✅ Exact full URL match
+//     return window.location.href.startsWith(url.origin + url.pathname);
+
+//   } catch {
+//     // ✅ Angular relative route
+//     return this.router.url === path;
+//   }
+// }
 
   // ✅ Delegates fully to ThemeService
+ 
+//  for prod
+ isActiveRoute(path?: string): boolean {
+  if (!path) return false;
+
+  const currentFull = window.location.href;
+
+  try {
+    const url = new URL(path);
+
+    const menuHash = url.hash; // #/recommendationsList
+    const menuPath = url.pathname; 
+
+    const currentHash = window.location.hash; // current hash
+    const currentPathname = window.location.pathname; // /kiln/ or /
+
+    // ✅ Case 1: Hash-based routes (most important)
+    if (menuHash) {
+      const hashMatch = currentHash === menuHash;
+
+      // If path also exists (prod case like /kiln/)
+      if (menuPath && menuPath !== "/") {
+        return hashMatch && currentPathname.includes(menuPath);
+      }
+
+      // Dev case (no base path)
+      return hashMatch;
+    }
+
+    // ✅ Case 2: Full URL match (non-hash pages)
+    return currentFull.startsWith(url.origin + url.pathname);
+
+  } catch {
+    // ✅ Angular relative route fallback
+    return this.router.url === path;
+  }
+}
   toggleTheme(): void {
     this.themeService.toggle();
   }
@@ -317,9 +425,10 @@ export class SidebrComponent implements OnInit {
 }
 
   isChildActive(children: MenuItem[] = [], currentPath: string): boolean {
-    return children.some(
-      (c) => currentPath === c.path || this.isChildActive(c.children ?? [], currentPath)
-    );
+    return children.some(c => {
+    if (this.isActiveRoute(c.path)) return true;
+    return this.isChildActive(c.children ?? [], currentPath);
+  });
   }
 
 getVerticalLineHeight(child: MenuItem, nestedOpen: boolean): string {

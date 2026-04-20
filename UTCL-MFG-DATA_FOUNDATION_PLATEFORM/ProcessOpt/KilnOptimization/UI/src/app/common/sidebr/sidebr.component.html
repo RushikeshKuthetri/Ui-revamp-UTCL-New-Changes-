@@ -17,10 +17,10 @@
       <!-- ══════════════════════════════════════════════════════════ -->
       <!-- SIDEBAR                                                    -->
       <!-- ══════════════════════════════════════════════════════════ -->
-      <div class="fixed top-[68px] left-0 z-40  h-[calc(100dvh-98px)] overflow-y-auto flex flex-col rounded-r-3xl
-
+      <div class="fixed top-[68px] left-0 z-40  h-[calc(100dvh-108px)] overflow-y-auto flex flex-col rounded-r-3xl
+ 
            bg-[var(--bg-leftdrawer)] [box-shadow:var(--left-drawer-shadow)]
-
+ 
            transition-all duration-300" [class.lg:w-20]="collapsed" [class.lg:w-60]="!collapsed" [class.w-60]="true"
             [class.translate-x-0]="open" [class.-translate-x-full]="!open" [class.lg:translate-x-0]="true">
             <!-- ── MOBILE CLOSE BUTTON ─────────────────────────────── -->
@@ -39,15 +39,16 @@
                   <ng-container *ngFor="let item of filteredMenu; let i = index">
                         <div>
                               <!-- ── PARENT MENU ITEM ──────────────────────────── -->
-                              <div class="flex items-center py-2 rounded-xl transition-all cursor-pointer"
-                                    [class.justify-center]="collapsed" [class.px-2]="collapsed"
-                                    [class.px-3]="!collapsed" [class.pr-2]="!collapsed" [class.gap-3]="!collapsed"
-                                    [ngClass]="{
-
+                             <div class="flex items-center py-2 rounded-xl transition-all cursor-pointer relative"
+                                    (mouseenter)="hoveredItem = item.name; setTooltipPosition($event)"
+                                    (mouseleave)="hoveredItem = null" [class.justify-center]="collapsed"
+                                    [class.px-2]="collapsed" [class.px-3]="!collapsed" [class.pr-2]="!collapsed"
+                                    [class.gap-3]="!collapsed" [ngClass]="{
+ 
               'bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold': !item.hasDropdown && isActiveRoute(item.path),
-
+ 
               'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': item.hasDropdown || !isActiveRoute(item.path)
-
+ 
             }" (click)="item.hasDropdown ? handleParentClick(item) : handleNavigation(item)">
                                     <!-- Dropdown parent (not a link) -->
                                     <ng-container *ngIf="item.hasDropdown; else linkItem">
@@ -135,12 +136,8 @@
                                                       <ng-container *ngIf="child.hasDropdown; else childLink">
                                                             <div class="flex-1 flex items-center py-[6.4px] px-2 pr-2 rounded-lg transition-all text-sm min-w-0 gap-1"
                                                                   [ngClass]="{
-
-                        'bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold': isChildActive(child.children, currentPath),
-
-                        'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': !isChildActive(child.children, currentPath)
-
-                      }">
+                                                      'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': true
+                                                            }">
                                                                   <span class="flex-1 truncate">{{ child.name }}</span>
                                                                   <span
                                                                         class="ml-auto transition-transform duration-200 shrink-0">
@@ -171,12 +168,9 @@
                                                                   (click)="handleNavigation(child); $event.stopPropagation()">
                                                                   <div class="py-[6.4px] px-2 rounded-lg transition-all text-sm truncate"
                                                                         [ngClass]="{
-
-                          'bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold': currentPath === child.path,
-
-                          'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': currentPath !== child.path
-
-                        }">
+'bg-[var(--left-drawer-active-tab)] text-[#111111]': isActiveRoute(child.path),
+'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': !isActiveRoute(child.path)
+}">
 
                                                                         {{ child.name }}
                                                                   </div>
@@ -233,8 +227,8 @@
                                                                         </svg>
                                                                         <div class="flex-1 py-[6.4px] px-2 rounded-lg transition-all text-sm truncate"
                                                                               [ngClass]="{
-                    'bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold': currentPath === grandchild.path,
-                    'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': currentPath !== grandchild.path
+                   'bg-[var(--left-drawer-active-tab)] text-[#111111]': isActiveRoute(grandchild.path),
+'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': !isActiveRoute(grandchild.path)
                 }">
                                                                               {{ grandchild.name }}
                                                                         </div>
@@ -255,13 +249,13 @@
             <div [class.px-3]="!collapsed" [class.px-2]="collapsed" [class.py-2]="collapsed" [class.mx-2]="collapsed"
                   class="pb-2">
                   <div class="rounded-xl !border bg-[var(--bg-leftdrawer-footer)] border-[color:var(--left-drawer-footer-border)]
-
+ 
            shadow-[0_2px_6px_rgba(0,0,0,0.05)] backdrop-blur-sm transition-all duration-300" [ngClass]="{
-
+ 
   'flex flex-col items-center justify-center gap-6 px-3 py-3': collapsed,
-
+ 
   'flex items-center justify-evenly lg:justify-between px-9 py-1 pb-2': !collapsed
-
+ 
 }">
                         <!-- Theme -->
                         <button (click)="toggleTheme()"
@@ -313,6 +307,15 @@
             </div>
             <!-- /FOOTER -->
       </div>
+      <!-- ── TOOLTIP (collapsed mode) ────────────────────────────────── -->
+<div *ngIf="collapsed && hoveredItem"
+     class="fixed z-[9999] px-2 py-1.5 rounded-lg text-sm font-medium pointer-events-none
+            bg-[var(--bg-leftdrawer)] text-[var(--leftdrawer-text)]
+            shadow-lg !border !border-[color:var(--left-drawer-footer-border)]"
+     [style.top.px]="tooltipPosition.top - 14"
+     [style.left.px]="tooltipPosition.left">
+  {{ hoveredItem }}
+</div>
       <!-- /SIDEBAR -->
 </ng-container>
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -320,16 +323,15 @@
 <!-- ══════════════════════════════════════════════════════════════ -->
 <ng-template #iconTpl let-icon>
       <ng-container [ngSwitch]="icon">
-<svg *ngSwitchCase="'network'" xmlns="http://www.w3.org/2000/svg" 
-     class="w-[22px] h-[22px] shrink-0" fill="none"
-     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"
-     stroke-linecap="round" stroke-linejoin="round">
-    <rect x="16" y="16" width="6" height="6" rx="1"/>
-    <rect x="2" y="16" width="6" height="6" rx="1"/>
-    <rect x="9" y="2" width="6" height="6" rx="1"/>
-    <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/>
-    <path d="M12 12V8"/>
-</svg>
+            <svg *ngSwitchCase="'network'" xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[22px] shrink-0"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <rect x="16" y="16" width="6" height="6" rx="1" />
+                  <rect x="2" y="16" width="6" height="6" rx="1" />
+                  <rect x="9" y="2" width="6" height="6" rx="1" />
+                  <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+                  <path d="M12 12V8" />
+            </svg>
             <svg *ngSwitchCase="'download'" xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[22px] shrink-0"
                   fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd"

@@ -1091,7 +1091,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
 
           <Modal.Header
             closeButton
-            className="!border-b "
+            className="border-b "
           >
             <Modal.Title className="text-sm font-semibold">
               New Dashboard
@@ -1111,8 +1111,8 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
           px-2 py-1
           text-sm
           rounded
-          !border
-          !border-[var(--input-enable-border)]
+          border
+          border-[var(--input-enable-border)]
 
           focus:outline-none
         "
@@ -1123,7 +1123,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
             </small>
           </Modal.Body>
 
-          <Modal.Footer className="!border-t border-[var(--search-border)] flex gap-2">
+          <Modal.Footer className="border-t border-[var(--search-border)] flex gap-2">
 
             <button
               onClick={() => onDashboardInputCancel()}
@@ -1131,8 +1131,8 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
           px-3 py-1
           text-sm
           rounded
-          !border
-          !border-[var(--button-border)]
+          border
+          border-[var(--button-border)]
           bg-[var(--button-bg)]
           text-[var(--text-color)]
           hover:bg-[var(--button-hover-bg)]
@@ -1169,16 +1169,16 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
   // ==============================================================
 
   return (
-    <div className="relative pb-0 md:pt-0">
-      <div className="flex items-start  gap-[10px] h-full">
+    <div className="relative pb-0 md:pt-0   overflow-hidden">
+      <div className="flex items-start  gap-[10px]">
 
         <div className="h-full w-[20%] min-w-0 max-w-[20%] overflow-y-auto flex flex-col bg-[var(--bg-leftdrawer)] sticky top-0 
     md:static 
     max-md:absolute max-md:top-[80px] max-md:left-[-200px] max-md:w-[200px] max-md:h-[90%] max-md:z-[5] transition-all duration-100 ">
-          <div className=" ml-2 flex text-[18px] font-medium font-poppins text-[var(--title)]  pb-1">
+          <div className=" ml-2 mt-2 flex text-[18px] font-semibold text-[var(--title)]  pb-1">
             <span>Charts Visualization</span>
           </div>
-          <div className="!border rounded-lg !border-[var(--form-border)] h-[30vw]  mx-1 py-2 px-2">
+          <div className="border rounded-lg border-[color:var(--left-drawer-footer-border) h-[30vw]  mx-1 py-2 px-2">
             {/* cross icon */}
 
             {isPhone && (
@@ -1238,7 +1238,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
               transition-all duration-300
               bg-[var(--card-bg)]
               text-[var(--text-color)]
-              !border !border-[var(--search-border)]
+              border border-[var(--search-border)]
               hover:shadow-[var(--card-shadow-onhover)]
               font-medium
               text-[1.5em]
@@ -1260,6 +1260,8 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                 </label>
 
                 <Select
+                  menuPortalTarget={document.body}
+                  menuPosition="fixed"
                   className={
                     validationErrorMsg1.plant
                       ? "error-input basic-single"
@@ -1301,6 +1303,14 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                       border: "1px solid var(--search-border)",
                       borderRadius: "6px",
                       boxShadow: "var(--card-shadow)",
+                    
+                      fontSize: "11px",
+                    }),
+                    menuList: (base) => ({
+                      ...base,
+                      maxHeight: "160px",      // 👈 dropdown height limit
+                      paddingTop: 2,
+                      paddingBottom: 2,
                     }),
 
                     valueContainer: (base) => ({
@@ -1363,8 +1373,9 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                           : "transparent",
                       color: "var(--text-color)",
                       cursor: "pointer",
-                      fontSize: "12px",
-                      padding: "5px 8px",
+                      fontSize: "11px",   
+                        zIndex: 9999,     // 👈 text size kam
+                      padding: "3px 8px",
                       ":active": {
                         backgroundColor: "var(--button-hover-bg)",
                       },
@@ -1543,8 +1554,8 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                   : "hidden"
                   }`}
               >
-                <div className="mt-1 !border border-[var(--form-border)] rounded-md overflow-hidden bg-[var(--bg-leftdrawer)]">
-                  <div className="!border border-[var(--form-border)] rounded-md overflow-hidden bg-[var(--bg-leftdrawer)]">
+                <div className="mt-1 border border-[var(--form-border)] rounded-md overflow-hidden bg-[var(--bg-leftdrawer)]">
+                  <div className="border border-[var(--form-border)] rounded-md overflow-hidden bg-[var(--bg-leftdrawer)]">
 
 
                     <h2>
@@ -1557,7 +1568,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
       text-sm font-medium
       text-[var(--text-color)]
       bg-[var(--button-bg)]
-      !border-b border-[var(--form-border)]
+      border-b border-[var(--form-border)]
       transition
       "
                       >
@@ -1569,12 +1580,12 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                     <div className="px-1 overflow-y-auto h-[29vh] text-[10px]">
 
                       {tagOptions.length !== 0 && (
-                        <div className="sticky top-0 z-10 bg-[var(--bg-leftdrawer)] pb-1 pt-1">
+                        <div className="sticky top-0  bg-[var(--bg-leftdrawer)] pb-1 pt-1">
                           <input
                             type="text"
                             placeholder="Search Tags"
                             onChange={searchTags}
-                            className="w-full px-2 py-0.5 text-[10px] rounded !border border-[var(--search-border)] bg-[var(--input-enable-bg)] text-[var(--text-color)] placeholder-[var(--search-placeholder)] focus:outline-none"
+                            className="w-full px-2 py-0.5 text-[10px] rounded border border-[var(--search-border)] bg-[var(--input-enable-bg)] text-[var(--text-color)] placeholder-[var(--search-placeholder)] focus:outline-none"
                           />
                         </div>
                       )}
@@ -1663,7 +1674,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
           </div>
         </div>
 
-        <div className="flex flex-col h-full w-full bg-[var(--bg-main-container)] text-[var(--text-color)]">
+        <div className="flex flex-col h-[35vw] w-full overflow-hidden bg-[var(--bg-main-container)] text-[var(--text-color)]">
           <div className="flex items-center gap-3 px-3 py-2 shadow-[var(--header-shadow)] flex-wrap">
             <div className="flex-1 min-w-0 graph-tags-panel" id="selected-tags-panel"></div>
             <div className="flex flex-row items-center  flex-wrap dash-actions">
@@ -1709,10 +1720,10 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
         h-[34px] px-2 text-sm rounded
         bg-[var(--input-enable-bg)]
         text-[var(--text-color)]
-        !border
+        border
         ${startDateValidationText
-                        ? "!border-red-500"
-                        : "!border-[var(--input-enable-border)]"}
+                        ? "border-red-500"
+                        : "border-[var(--input-enable-border)]"}
       `}
                     placeholderText={
                       startDateValidationText
@@ -1782,10 +1793,10 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
         h-[34px] px-2 text-sm rounded
         bg-[var(--input-enable-bg)]
         text-[var(--text-color)]
-        !border
+        border
         ${endDateValidationText
-                        ? "!border-red-500"
-                        : "!border-[var(--input-enable-border)]"
+                        ? "border-red-500"
+                        : "border-[var(--input-enable-border)]"
                       }
       `}
                     placeholderText={
@@ -1941,7 +1952,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                             rounded-md
                             bg-[var(--button-bg)]
                             text-[var(--text-color)]
-                            !border border-[var(--button-border)]
+                            border border-[var(--button-border)]
                             hover:bg-[var(--button-hover-bg)]
                             transition
   "
@@ -1958,7 +1969,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                             rounded-md
                             bg-[var(--button-bg)]
                             text-[var(--text-color)]
-                            !border border-[var(--button-border)]
+                            border border-[var(--button-border)]
                             hover:bg-[var(--button-hover-bg)]
                             transition
   "
@@ -1972,7 +1983,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                             rounded-md
                             bg-[var(--button-bg)]
                             text-[var(--text-color)]
-                            !border border-[var(--button-border)]
+                            border border-[var(--button-border)]
                             hover:bg-[var(--button-hover-bg)]
                             transition
   "
@@ -1992,7 +2003,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                             rounded-md
                             bg-[var(--button-bg)]
                             text-[var(--text-color)]
-                            !border border-[var(--button-border)]
+                            border border-[var(--button-border)]
                             hover:bg-[var(--button-hover-bg)]
                             transition
   "
@@ -2011,7 +2022,7 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
                             rounded-md
                             bg-[var(--button-bg)]
                             text-[var(--text-color)]
-                            !border border-[var(--button-border)]
+                            border border-[var(--button-border)]
                             hover:bg-[var(--button-hover-bg)]
                             transition
   "
@@ -2129,16 +2140,8 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
             id="graph-container"
             onDrop={handleDropAdd}
             onDragOver={handleChartDragOver}
-            className="
-    relative
-    flex-1
-    w-full
-    h-full
-    overflow-auto
-    bg-[var(--bg-main-container)]
-    !border
-    !border-[var(--search-border)]
-  "
+            className="relative w-full overflow-y-auto overflow-x-hidden bg-[var(--bg-main-container)]"
+            style={{ height: 'calc(100vh - 90px)' }}  // 130px = topbar + hr height
           >
             <div
               id="chart-add-target"
@@ -2150,9 +2153,9 @@ export const ChartsVisual = ({ showingInTrend, data }) => {
       justify-center
       text-sm
       text-[var(--text-color)]
-      !border
-      !border-dashed
-      !border-[var(--search-border)]
+      border-2
+      border-dashed
+      border-[var(--search-border)]
       rounded-md
       pointer-events-none
       opacity-60
