@@ -741,7 +741,7 @@ const DataTable = () => {
           searchable: true,
           key: "8",
           headerStyle: { color: "black", minWidth: "110px", maxWidth: "130px" },
-          cellStyle: { minWidth: "110px", maxWidth: "130px"},
+          cellStyle: { minWidth: "110px", maxWidth: "130px" },
           render: (rowData) => (
             <div>
               {rowData.Contact_No ? rowData.Contact_No : "-"}
@@ -754,7 +754,7 @@ const DataTable = () => {
           searchable: false,
           key: "9",
           headerStyle: { color: "black", minWidth: "90px", maxWidth: "110px" },
-          cellStyle: { minWidth: "90px", maxWidth: "110px"},
+          cellStyle: { minWidth: "90px", maxWidth: "110px" },
           render: (rowData) => (
             <div >
               {rowData.SMS_Limit ? rowData.SMS_Limit : "-"}
@@ -766,7 +766,7 @@ const DataTable = () => {
           field: "IsActive",
           key: "3",
           headerStyle: { color: "black", minWidth: "80px", maxWidth: "90px" },
-          cellStyle: { minWidth: "80px", maxWidth: "90px"},
+          cellStyle: { minWidth: "80px", maxWidth: "90px" },
           render: (rowData) => (
             <div>
               {rowData.IsActive ? "YES" : "NO"}
@@ -845,7 +845,7 @@ const DataTable = () => {
           field: "IsActive",
           key: "3",
           headerStyle: { color: "black", minWidth: "100px", maxWidth: "120px" },
-          cellStyle: { minWidth: "100px", maxWidth: "120px"},
+          cellStyle: { minWidth: "100px", maxWidth: "120px" },
           render: (rowData) => (
             <div>
               {rowData.IsActive ? "YES" : "NO"}
@@ -857,7 +857,7 @@ const DataTable = () => {
           field: "IsAlert",
           key: "4",
           headerStyle: { color: "black", minWidth: "100px", maxWidth: "120px" },
-          cellStyle: { minWidth: "100px", maxWidth: "120px"},
+          cellStyle: { minWidth: "100px", maxWidth: "120px" },
           render: (rowData) => (
             <div>
               {rowData.IsAlert ? "YES" : "NO"}
@@ -1261,7 +1261,9 @@ px-2 py-1
                     background: "var(--table-header-bg)",
                     color: "#111111",
                     fontSize: "14px",
-                    padding: "2px 18px",   // reduced padding
+                    padding: "2px 18px",    // reduced padding
+                    height: "20px",             // ← add fixed height
+                    lineHeight: "20px",
                     borderBottom: "1px solid var(--form-border)",
                     borderTop: "1px solid var(--form-border)",
                     position: "sticky",

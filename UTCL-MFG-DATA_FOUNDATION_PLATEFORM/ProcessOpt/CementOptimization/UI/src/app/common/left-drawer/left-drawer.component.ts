@@ -323,36 +323,39 @@ export class LeftDrawerComponent implements OnInit {
 // }
 
 // Production
-isActiveRoute(path?: string): boolean {
+ isActiveRoute(path?: string): boolean {
   if (!path) return false;
 
-  const currentHash = window.location.hash;        // #/recommendationsList
-  const currentPathname = window.location.pathname; // /kiln/ or /cement/ or /
+  const currentFull = window.location.href;
 
   try {
     const url = new URL(path);
 
-    const menuHash = url.hash;       // #/recommendationsList
-    const menuPath = url.pathname;   // /kiln/ or /cement/ or /
+    const menuHash = url.hash; // #/recommendationsList
+    const menuPath = url.pathname; 
 
-    // ✅ Case 1: Hash आधारित route (MOST IMPORTANT)
+    const currentHash = window.location.hash; // current hash
+    const currentPathname = window.location.pathname; // /kiln/ or /
+
+    // ✅ Case 1: Hash-based routes (most important)
     if (menuHash) {
       const hashMatch = currentHash === menuHash;
 
-      // 🔥 If module मौजूद है (kiln/cement/blaine)
-      if (menuPath && menuPath !== '/') {
-        return hashMatch && currentPathname.startsWith(menuPath);
+      // If path also exists (prod case like /kiln/)
+      if (menuPath && menuPath !== "/") {
+        return hashMatch && currentPathname.includes(menuPath);
       }
 
-      // Dev case → no module path
+      // Dev case (no base path)
       return hashMatch;
     }
 
-    // ✅ Case 2: Non-hash route
-    return currentPathname === menuPath;
+    // ✅ Case 2: Full URL match (non-hash pages)
+    return currentFull.startsWith(url.origin + url.pathname);
 
   } catch {
-    return window.location.href.includes(path);
+    // ✅ Angular relative route fallback
+    return this.router.url === path;
   }
 }
 

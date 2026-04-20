@@ -17,7 +17,7 @@
       <!-- ══════════════════════════════════════════════════════════ -->
       <!-- SIDEBAR                                                    -->
       <!-- ══════════════════════════════════════════════════════════ -->
-      <div class="fixed top-[68px] left-0 z-40  h-[calc(100dvh-98px)] overflow-y-auto overflow-x-hidden flex flex-col rounded-r-3xl
+      <div class="fixed top-[68px] left-0 z-40  h-[calc(100dvh-108px)] overflow-y-auto flex flex-col rounded-r-3xl
  
            bg-[var(--bg-leftdrawer)] [box-shadow:var(--left-drawer-shadow)]
  
@@ -34,12 +34,12 @@
                   </button>
             </div>
             <!-- ── MENU LIST ────────────────────────────────────────── -->
-            <div class="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col gap-1 mt-2" [class.px-3]="!collapsed"
+            <div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-1 mt-2" [class.px-3]="!collapsed"
                   [class.px-2]="collapsed" [class.items-center]="collapsed">
                   <ng-container *ngFor="let item of filteredMenu; let i = index">
                         <div>
                               <!-- ── PARENT MENU ITEM ──────────────────────────── -->
-                              <div class="flex items-center py-2 rounded-xl transition-all cursor-pointer relative"
+                             <div class="flex items-center py-2 rounded-xl transition-all cursor-pointer relative"
                                     (mouseenter)="hoveredItem = item.name; setTooltipPosition($event)"
                                     (mouseleave)="hoveredItem = null" [class.justify-center]="collapsed"
                                     [class.px-2]="collapsed" [class.px-3]="!collapsed" [class.pr-2]="!collapsed"
@@ -136,12 +136,8 @@
                                                       <ng-container *ngIf="child.hasDropdown; else childLink">
                                                             <div class="flex-1 flex items-center py-[6.4px] px-2 pr-2 rounded-lg transition-all text-sm min-w-0 gap-1"
                                                                   [ngClass]="{
- 
-                        'bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold': isChildActive(child.children, currentPath),
- 
-                        'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': !isChildActive(child.children, currentPath)
- 
-                      }">
+                                                      'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': true
+                                                            }">
                                                                   <span class="flex-1 truncate">{{ child.name }}</span>
                                                                   <span
                                                                         class="ml-auto transition-transform duration-200 shrink-0">
@@ -172,13 +168,10 @@
                                                                   (click)="handleNavigation(child); $event.stopPropagation()">
                                                                   <div class="py-[6.4px] px-2 rounded-lg transition-all text-sm truncate"
                                                                         [ngClass]="{
- 
-                          'bg-[var(--left-drawer-active-tab)] !text-[#111111] ': isActiveRoute(child.path),
- 
-                          'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': currentPath !== child.path
- 
-                        }">
- 
+'bg-[var(--left-drawer-active-tab)] text-[#111111]': isActiveRoute(child.path),
+'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': !isActiveRoute(child.path)
+}">
+
                                                                         {{ child.name }}
                                                                   </div>
                                                             </div>
@@ -188,7 +181,7 @@
                                                 <!-- ── LEVEL-2 NESTED CHILDREN ─────────────── -->
                                                 <div *ngIf="child.hasDropdown && isDropdownOpen(item.name + '__' + child.name)"
                                                       class="flex flex-col relative" [style.margin-left.px]="SVG_WIDTH">
- 
+
                                                       <!-- Connecting line sirf tab jab ci last nahi ho -->
                                                       <div *ngIf="ci !== item.children!.length - 1" class="absolute"
                                                             [style.left.px]="-SVG_WIDTH + VERTICAL_LINE_X"
@@ -196,7 +189,7 @@
                                                             [style.height]="getVerticalLineHeight(child, isDropdownOpen(item.name + '__' + child.name))"
                                                             [style.width.px]="1" [style.background-color]="lineColor">
                                                       </div>
- 
+
                                                       <ng-container
                                                             *ngFor="let grandchild of child.children; let gi = index">
                                                             <div class="relative flex flex-col">
@@ -234,8 +227,8 @@
                                                                         </svg>
                                                                         <div class="flex-1 py-[6.4px] px-2 rounded-lg transition-all text-sm truncate"
                                                                               [ngClass]="{
-                    'bg-[var(--left-drawer-active-tab)] text-[#111111] font-semibold': currentPath === grandchild.path,
-                    'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': currentPath !== grandchild.path
+                   'bg-[var(--left-drawer-active-tab)] text-[#111111]': isActiveRoute(grandchild.path),
+'text-[var(--leftdrawer-text)] hover:bg-[var(--left-drawer-active-tab)] hover:text-[#111111]': !isActiveRoute(grandchild.path)
                 }">
                                                                               {{ grandchild.name }}
                                                                         </div>
@@ -314,24 +307,16 @@
             </div>
             <!-- /FOOTER -->
       </div>
+      <!-- ── TOOLTIP (collapsed mode) ────────────────────────────────── -->
+<div *ngIf="collapsed && hoveredItem"
+     class="fixed z-[9999] px-2 py-1.5 rounded-lg text-sm font-medium pointer-events-none
+            bg-[var(--bg-leftdrawer)] text-[var(--leftdrawer-text)]
+            shadow-lg !border !border-[color:var(--left-drawer-footer-border)]"
+     [style.top.px]="tooltipPosition.top - 14"
+     [style.left.px]="tooltipPosition.left">
+  {{ hoveredItem }}
+</div>
       <!-- /SIDEBAR -->
- 
-      <!-- Tooltip Overlay (outside scroll container to prevent horizontal scrollbar) -->
-      <div *ngIf="collapsed && hoveredItem"
-            class="fixed z-[10000] pointer-events-none -translate-y-1/2"
-            [style.top.px]="tooltipPosition.top"
-            [style.left.px]="tooltipPosition.left">
-            <div class="absolute -left-[6px] top-1/2 -translate-y-1/2
-            w-0 h-0 border-t-[6px] border-b-[6px]
-            border-t-transparent border-b-transparent
-            border-r-[6px] border-r-[var(--bg-leftdrawer)]">
-            </div>
- 
-            <div class="bg-[var(--bg-leftdrawer)] !border !border-[var(--left-drawer-footer-border)]
-            rounded-xl shadow-md px-3 py-2 text-sm whitespace-nowrap text-[var(--leftdrawer-text)]">
-                  {{ hoveredItem }}
-            </div>
-      </div>
 </ng-container>
 <!-- ══════════════════════════════════════════════════════════════ -->
 <!-- ICON TEMPLATE — maps icon name string → inline SVG           -->
@@ -405,5 +390,3 @@
             </svg>
       </ng-container>
 </ng-template>
- 
- 
