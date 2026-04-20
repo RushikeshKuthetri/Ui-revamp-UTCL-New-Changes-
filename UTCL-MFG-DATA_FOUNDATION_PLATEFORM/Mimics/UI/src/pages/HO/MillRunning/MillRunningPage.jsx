@@ -120,7 +120,7 @@ export const MillRunningPage = () => {
         <ScreenLoader />
       ) : (
         <div className="h-100">
-          <div className="row mt-1">
+          <div className="row">
             <MillRunningStatusTable
               section="Kiln"
               data={centralisedDashboardData.kiln}

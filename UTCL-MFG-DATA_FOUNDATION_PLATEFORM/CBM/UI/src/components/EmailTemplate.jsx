@@ -702,6 +702,7 @@ export const EmailTemplate = () => {
                 h-[35px]
                 bg-[var(--input-enable-bg)]
                 px-2 py-1
+                text-[13px]
                 text-[var(--text-color)]
                 focus:outline-none
                 focus:ring-2
@@ -727,6 +728,7 @@ export const EmailTemplate = () => {
                 h-[35px]
                 bg-[var(--input-enable-bg)]
                 px-2
+                text-[13px]
                 text-[var(--text-color)]
                 focus:outline-none
                 focus:ring-2

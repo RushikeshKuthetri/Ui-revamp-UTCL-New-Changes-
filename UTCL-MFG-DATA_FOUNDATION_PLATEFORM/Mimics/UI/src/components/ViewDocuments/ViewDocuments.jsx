@@ -10,24 +10,24 @@ export const ViewDocuments = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const files = authProvider?.documents?.files || [];
     const videos = authProvider?.documents?.videos || [];
-    const dummyVideos = [
-        {
-            key: "dummy-video-1",
-            name: "KEPServerEX License Activation Procedure.pdf",
-            url: "https://www.w3schools.com/html/mov_bbb.mp4",
-        },
-        {
-            key: "dummy-video-2",
-            name: "KEPServerEX License Activation Procedure.pdf",
-            url: "https://www.w3schools.com/html/movie.mp4",
-        },
-        {
-            key: "dummy-video-3",
-            name: "Screen Development Training Final Version V2.pdf",
-            url: "https://www.w3schools.com/html/mov_bbb.mp4",
-        },
-    ];
-    const videosToDisplay = videos.length > 0 ? videos : dummyVideos;
+    // const dummyVideos = [
+    //     {
+    //         key: "dummy-video-1",
+    //         name: "KEPServerEX License Activation Procedure.pdf",
+    //         url: "https://www.w3schools.com/html/mov_bbb.mp4",
+    //     },
+    //     {
+    //         key: "dummy-video-2",
+    //         name: "KEPServerEX License Activation Procedure.pdf",
+    //         url: "https://www.w3schools.com/html/movie.mp4",
+    //     },
+    //     {
+    //         key: "dummy-video-3",
+    //         name: "Screen Development Training Final Version V2.pdf",
+    //         url: "https://www.w3schools.com/html/mov_bbb.mp4",
+    //     },
+    // ];
+    // const videosToDisplay = videos.length > 0 ? videos : dummyVideos;
 
     useEffect(() => {
         fetchDocuments(dispatch);
@@ -177,7 +177,7 @@ export const ViewDocuments = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {videosToDisplay.map((video, index) => (
+                                {videos.map((video, index) => (
                                     <tr
                                         key={video.key}
                                         className="hover:bg-[var(--hover-bg)]"
@@ -226,7 +226,7 @@ export const ViewDocuments = () => {
                                     </tr>
                                 ))}
 
-                                {videosToDisplay.length === 0 && (
+                                {videos.length === 0 && (
                                     <tr>
                                         <td colSpan="3" className="text-center py-4 text-[var(--card-subtle)]">
                                             No videos available

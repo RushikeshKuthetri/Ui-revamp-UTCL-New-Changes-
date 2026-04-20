@@ -199,9 +199,10 @@ const TagSelectionModal = ({
                                     setSearch(""); // 🔥 clear input after selection
                                 }
                             }}
-                            className="w-full mb-3 px-3 py-2 border rounded-md 
-             bg-[var(--input-enable-bg)] 
-             border-[var(--form-border)]
+                            className="w-full mt-1 mb-2 px-2 py-0.5 border rounded-md
+                            placeholder:text-[12px]
+             bg-[var(--input-enable-bg)]
+             !border-[var(--form-border)]
              text-[var(--text-color)]
              placeholder-[var(--search-placeholder)]
              caret-[var(--text-color)]
@@ -221,7 +222,7 @@ const TagSelectionModal = ({
                                 <thead className="sticky top-0 z-10">
                                     <tr>
                                         <th className="w-[40px] text-center bg-[var(--picker-accent)]"></th>
-                                        <th className="bg-[var(--picker-accent)] text-center text-xs font-semibold">
+                                        <th className="bg-[var(--picker-accent)] text-center text-[#111111] text-sm font-semibold">
                                             Tag and Tag Description
                                         </th>
                                     </tr>
@@ -261,7 +262,7 @@ const TagSelectionModal = ({
 
                         {/* PAGINATION */}
                         {totalPages > 1 && (
-                            <div className="flex justify-between items-center mt-3">
+                            <div className="flex justify-between items-center mt-2">
                                 <button
                                     disabled={page === 0}
                                     onClick={() => setPage(p => p - 1)}
@@ -308,7 +309,7 @@ const TagSelectionModal = ({
 
                         <button
                             onClick={() => onApply(tempSelected)}
-                            className="px-3 py-1 text-sm rounded text-white
+                            className="px-3 py-1 rounded text-sm rounded text-[#111111]
                        bg-[var(--picker-accent)]
                        hover:bg-[var(--button-hover-bg)]"
                         >

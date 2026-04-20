@@ -832,7 +832,7 @@ body {
   --success-bg: #ecffeb;
   --success-text: #245f06;
   --success-border: #10b91b;
-  --dashboard-graph-bg: #fefbf8;
+  --dashboard-graph-bg: #ffffff;
   --alert-card-bg: #f3f4f6;
   --chart-card-border: #676363;
 
@@ -881,7 +881,7 @@ body {
   --success-bg: #282a29;
   --success-text: #67ecc7;
   --success-border: #4b4f4d;
-  --dashboard-graph-bg: #272727;
+  --dashboard-graph-bg: #1e1e1e;
   --alert-card-bg: #252525;
   --chart-card-border: #5e5b5b;
   --input-onhover-border: #545659;
@@ -1054,17 +1054,30 @@ ngx-gauge .reading-label {
 
 
 /* SCROLLBAR STYLE */
-.custom-scrollbar {
-  -ms-overflow-style: none;
-  /* IE & Edge */
-  scrollbar-width: none;
-  /* Firefox */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  /* 👈 vertical scrollbar thickness */
+  height: 4px;
+  /* horizontal scrollbar thickness */
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  display: none;
-  /* Chrome, Safari */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: var(--bg-main-container);
+  /* light gray track */
+  border-radius: 4px;
 }
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #a1a1a1;
+  /* orange thumb */
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+  /* darker orange on hover */
+}
+
 
 /* ===== FIX REACT DATEPICKER BROKEN LAYOUT ===== */
 

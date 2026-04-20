@@ -30,7 +30,7 @@ export const MENU_ITEMS: MenuItem[] = [
 
   { name: 'Report', icon: 'report', path: 'https://dev.d24ohd8z0zwg7d.amplifyapp.com/reports/reportspage', moduleKey: 'Mimics', openInNewTab: false },
 
-  { name: 'Tag Utility', icon: 'link', path: 'https://tag_utility.akxatechapps.com/', moduleKey: 'Mimics', openInNewTab: true },
+  { name: 'Tag Utility', icon: 'link', path: 'https://prod.d2kjkqgxv7wh9d.amplifyapp.com/', moduleKey: 'Mimics', openInNewTab: true },
 
   {
     name: 'CBM',

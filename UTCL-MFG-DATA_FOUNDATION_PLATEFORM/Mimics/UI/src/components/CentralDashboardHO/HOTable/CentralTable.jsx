@@ -74,7 +74,7 @@ export const CentralTable = () => {
   const headerCellClass = `${borderCellClass} bg-gradient-to-r from-orange-400 to-orange-300 text-[#111111]`;
 
   return (
-    <table className="w-full min-w-[1200px] overflow-x-hidden text-[var(--text-color)] !border !border-[var(--form-border)] !border-collapse">
+    <table className="w-full table-fixed text-[var(--text-color)] !border !border-[var(--form-border)] !border-collapse">
 
       <thead className="bg-[var(--bg-header)] text-[var(--header-text-color)]">
 
@@ -91,13 +91,13 @@ export const CentralTable = () => {
         </tr>
 
         <tr className="bg-gradient-to-r from-orange-400 to-orange-300 text-[#111111]">
-          <th className={`${borderCellClass} px-3 py-2 text-left`}>
+          <th className={`${borderCellClass} px-3 py-1 text-left`}>
             Zone
           </th>
-          <th className={`${borderCellClass} px-3 py-2 text-left`}>
+          <th className={`${borderCellClass} px-3 py-1 text-left`}>
             Type
           </th>
-          <th className={`${borderCellClass} px-3 py-2 text-left`}>
+          <th className={`${borderCellClass} px-3 py-1 text-left`}>
             Plant
           </th>
 
@@ -107,7 +107,7 @@ export const CentralTable = () => {
           ].map((item, i) => (
             <th
               key={i}
-              className={`${borderCellClass} px-3 py-2 text-center`}
+              className={`${borderCellClass} px-3 py-1 text-center`}
             >
               {item}
             </th>

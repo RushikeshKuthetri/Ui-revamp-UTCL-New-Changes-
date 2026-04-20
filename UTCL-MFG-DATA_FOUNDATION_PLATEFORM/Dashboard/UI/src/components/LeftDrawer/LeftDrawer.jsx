@@ -60,7 +60,7 @@ const menuItems = [
     {
         name: "Tag Utility",
         icon: FiLink,
-        path: "https://tag_utility.akxatechapps.com/",
+        path: "https://prod.d2kjkqgxv7wh9d.amplifyapp.com/",
         moduleKey: "Mimics",
         openInNewTab: true
     },

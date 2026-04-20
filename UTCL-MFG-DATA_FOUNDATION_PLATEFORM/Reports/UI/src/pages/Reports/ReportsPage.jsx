@@ -1801,16 +1801,16 @@ disabled:cursor-not-allowed"
                 <label className="mb-1 mt-3 text-sm ">
                   Recipients <span className="text-red-500">*</span>
                 </label>
-                <div className="ml-2 flex flex-wrap  text-[var-tex]">
+                <div className="flex flex-wrap  text-[var-tex]">
                   {recipient.map((item) => (
                     <div
-                      className="flex items-center gap-2 px-2 py-1 rounded-full bg-[var(--submit-button-bg)] text-[#111111] text-[var(--status-active-text)] text-sm  m-2"
+                      className=" mb-1 flex items-center gap-2 px-1 rounded-lg bg-[var(--submit-button-bg)] text-[#111111] text-[var(--status-active-text)] text-[13px]"
                       key={item}
                     >
                       {item}
                       <button
                         type="button"
-                        className="button cross ml-1"
+                        className="button cross mb-1"
                         onClick={(e) => {
                           e.stopPropagation(); // ✅ Prevent parent click
                           handleDeleteEmail(item);
@@ -1826,11 +1826,12 @@ disabled:cursor-not-allowed"
                   className={`
   w-full
   rounded-lg
-  px-3 h-[35px] py-2
-  border
+  px-2 h-[35px] py-2
+  text-[13px]
+  !border
   ${recipientError !== "" && recipientInput !== ""
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-[var(--form-border)] focus:ring-[var(--card-border)]"
+                      ? "!border-red-500 focus:ring-red-500"
+                      : "!border-[var(--form-border)] focus:ring-[var(--card-border)]"
                     }
   !bg-[var(--report-field-bg-color)]
   text-[var(--text-color)]

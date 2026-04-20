@@ -27,8 +27,7 @@ export const ModulesList = [
   {
     moduleName: "Tag Utility",
     heading: "Tag Utility",
-    // url: "https://prod.d2kjkqgxv7wh9d.amplifyapp.com/",
-    url: "https://tag_utility.akxatechapps.com/",
+    url: "https://prod.d2kjkqgxv7wh9d.amplifyapp.com/",
     description: "Tag Utility",
     isGrafana: true,
   },

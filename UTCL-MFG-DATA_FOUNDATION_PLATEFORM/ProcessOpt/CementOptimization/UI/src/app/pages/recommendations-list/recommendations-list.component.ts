@@ -8,7 +8,7 @@ import {MatTableDataSource,MatTableModule} from '@angular/material/table';
 @Component({
   selector: 'app-recommendations-list',
   templateUrl: './recommendations-list.component.html',
-  // styleUrls: ['./recommendations-list.component.scss']
+  styleUrls: ['./recommendations-list.component.scss'],
 })
 export class RecommendationsListComponent {
   RecommendationsListUrlType={
