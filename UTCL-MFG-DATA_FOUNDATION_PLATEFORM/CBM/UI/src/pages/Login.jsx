@@ -34,7 +34,7 @@ export const Login = () => {
     <>
       {!!!activeAccount && (
         <div
-          className="fixed inset-0 w-screen h-screen flex items-center justify-end bg-no-repeat bg-[length:100%_100%]"
+          className="fixed inset-0 w-screen h-screen flex items-center justify-end bg-no-repeat bg-cover bg-center"
           style={{ backgroundImage: "url(\login1.png)" }}
         >
           <div
