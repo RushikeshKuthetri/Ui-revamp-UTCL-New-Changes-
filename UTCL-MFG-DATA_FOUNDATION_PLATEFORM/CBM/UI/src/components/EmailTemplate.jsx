@@ -705,7 +705,7 @@ export const EmailTemplate = () => {
                 text-[13px]
                 text-[var(--text-color)]
                 focus:outline-none
-                focus:ring-2
+                focus:ring
                 focus:ring-[var(--input-onhover-border)]
               "
               />
@@ -731,7 +731,7 @@ export const EmailTemplate = () => {
                 text-[13px]
                 text-[var(--text-color)]
                 focus:outline-none
-                focus:ring-2
+                focus:ring
                 focus:ring-[var(--input-onhover-border)]
               "
               />
@@ -804,7 +804,7 @@ export const EmailTemplate = () => {
                 px-2
                 text-[var(--text-color)]
                 focus:outline-none
-                focus:ring-2
+                focus:ring
                 focus:ring-[var(--input-onhover-border)]
                 placeholder:text-[var(--search-placeholder)] placeholder:text-[13px]
               "
