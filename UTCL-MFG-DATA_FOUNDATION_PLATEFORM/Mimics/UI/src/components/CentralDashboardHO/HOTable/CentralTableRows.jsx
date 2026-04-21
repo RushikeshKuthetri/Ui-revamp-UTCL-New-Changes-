@@ -1,6 +1,6 @@
 import { CMTableRow, KilnTableRow } from "../index";
 export const CentralTableRows = ({ value, lengthCondition }) => {
-  const borderCellClass = "!border !border-[var(--form-border)]";
+  const borderCellClass = "!border !border-[var(--form-border)] text-wrap px-1.5";
 
   return (
     <tr className={lengthCondition ? "cluster-last-row" : ""}>

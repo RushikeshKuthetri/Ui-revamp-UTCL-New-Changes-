@@ -70,7 +70,7 @@
 import { CentralTableBody } from "./CentralTableBody";
 
 export const CentralTable = () => {
-  const borderCellClass = "!border !border-[var(--form-border)]";
+  const borderCellClass = "!border !border-[var(--form-border)] px-1.5 py-1 text-left";
   const headerCellClass = `${borderCellClass} bg-gradient-to-r from-orange-400 to-orange-300 text-[#111111]`;
 
   return (
@@ -91,13 +91,13 @@ export const CentralTable = () => {
         </tr>
 
         <tr className="bg-gradient-to-r from-orange-400 to-orange-300 text-[#111111]">
-          <th className={`${borderCellClass} px-3 py-1 text-left`}>
+          <th className={`${borderCellClass} `}>
             Zone
           </th>
-          <th className={`${borderCellClass} px-3 py-1 text-left`}>
+          <th className={`${borderCellClass}`}>
             Type
           </th>
-          <th className={`${borderCellClass} px-3 py-1 text-left`}>
+          <th className={`${borderCellClass}`}>
             Plant
           </th>
 

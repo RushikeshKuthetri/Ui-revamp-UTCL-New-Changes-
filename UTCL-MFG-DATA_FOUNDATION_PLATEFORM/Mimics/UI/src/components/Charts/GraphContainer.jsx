@@ -700,11 +700,11 @@ export const GraphContainer = forwardRef(
               isGroupTags={isGroupTags}
             />
           ) : chartType === "details" ? (
-            <p className="no-data-found-text"> No data found to show details</p>
+            <p className="no-data-found-text text-sm"> No data found to show details</p>
           ) : chartType === "table-chart" ? (
-            <p className="no-data-found-text"> Drop a tag to generate table</p>
+            <p className="no-data-found-text text-sm"> Drop a tag to generate table</p>
           ) : (
-            <p className="no-data-found-text"> Drop a tag to generate graph</p>
+            <p className="no-data-found-text text-sm"> Drop a tag to generate graph</p>
           )}
         </div>
       </div>

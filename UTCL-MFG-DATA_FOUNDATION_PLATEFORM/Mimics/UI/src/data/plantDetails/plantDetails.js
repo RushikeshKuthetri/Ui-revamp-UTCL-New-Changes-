@@ -2876,14 +2876,18 @@ export const plantDetails = [
     region: "East",
     name: "jharsuguda",
     category: "Plant",
-    path: "/jharsuguda",
+    // path: "/jharsuguda",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Jharsuguda",
+    openInNewTab: true
   },
   {
     id: "DKCW",
     region: "East",
     name: "dankuni",
     category: "Plant",
-    path: "/dankuni",
+    // path: "/dankuni",
+    path: "https://prakriti.utclconnect.com/data/perspective/client/Dankuni",
+    openInNewTab: true
   },
   // Dhule
   {
