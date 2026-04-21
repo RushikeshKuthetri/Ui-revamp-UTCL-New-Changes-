@@ -1324,54 +1324,54 @@ const MimicLineAlerts = () => {
         className="bg-[var(--alert-card-bg)] !border !border-[var(--search-border)] gap-2 rounded-2xl px-2 pb-2 w-full flex flex-col shadow-[var(--card-shadow)] hover:shadow-[var(--card-shadow-onhover)] transition-all duration-200"
       >
         <div className="flex items-center justify-between gap-2 text-[13px] text-[var(--text-color)] font-normal">
-  
-  <div className="flex flex-row gap-3">
-    <div className="flex items-center gap-1">
-      <span>Plant:</span>
-      <span>{cardValues[val].plant}</span>
-    </div>
 
-    <div className="flex items-center gap-1">
-      <span>Line:</span>
-      <span>{cardValues[val].line}</span>
-    </div>
+          <div className="flex flex-row gap-3">
+            <div className="flex items-center gap-1">
+              <span>Plant:</span>
+              <span>{cardValues[val].plant}</span>
+            </div>
 
-    <div className="flex items-center gap-1">
-      <span>Section:</span>
-      <span>{cardValues[val].section}</span>
-    </div>
-  </div>
+            <div className="flex items-center gap-1">
+              <span>Line:</span>
+              <span>{cardValues[val].line}</span>
+            </div>
 
-  <div className="flex items-center gap-2 whitespace-nowrap">
-    <label className="relative mt-1 inline-flex items-center cursor-pointer">
-      <input
-        type="checkbox"
-        checked={cardValues[val].isActive}
-        onChange={(e) => {
-          let tempCardValues = { ...cardValues };
-          tempCardValues[val].isActive = e.target.checked;
-          tempCardValues[val].isChanged = true;
-          setCardValues(tempCardValues);
-        }}
-        className="sr-only peer"
-      />
+            <div className="flex items-center gap-1">
+              <span>Section:</span>
+              <span>{cardValues[val].section}</span>
+            </div>
+          </div>
 
-      <div className="
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <label className="relative mt-1 inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={cardValues[val].isActive}
+                onChange={(e) => {
+                  let tempCardValues = { ...cardValues };
+                  tempCardValues[val].isActive = e.target.checked;
+                  tempCardValues[val].isChanged = true;
+                  setCardValues(tempCardValues);
+                }}
+                className="sr-only peer"
+              />
+
+              <div className="
         w-10 h-5 bg-[var(--alert-checkbox-bg)] rounded-full
         peer-checked:bg-[var(--submit-button-bg)]
         transition-colors duration-300 
       "/>
 
-      <div className="
+              <div className="
         absolute
         w-4 h-4 bg-white rounded-full shadow 
         transition-transform duration-300
         left-1.5 peer-checked:translate-x-5
       "/>
-    </label>
-  </div>
+            </label>
+          </div>
 
-</div>
+        </div>
         {/* Original active status block retained for reference
         <div className="flex items-center justify-between flex-nowrap w-full">
           <div className="flex items-center gap-2 whitespace-nowrap">
@@ -1517,12 +1517,16 @@ disabled:opacity-50"
       margin: 0,
       padding: 0,
     }),
+    menuPortal: (base) => ({
+      ...base,
+      zIndex: 9999,
+    }),
     menu: (base) => ({
       ...base,
       backgroundColor: "var(--input-enable-bg)",
       border: "1px solid var(--input-enable-border)",
       borderRadius: "6px",
-      zIndex: 999,
+      zIndex: 9999,
     }),
     option: (base, state) => ({
       ...base,
@@ -1552,7 +1556,7 @@ disabled:opacity-50"
       {/* <Navbar /> */}
       <div className="h-full flex flex-col bg-[var(--bg-main-container)] rounded-2xl  ">
         <div className="flex text-[18px] font-semibold text-[var(--title)]">
-          <h3 className="font-poppins font-medium flex text-[18px] text-[var(--title)]">Alert For Data Not Coming</h3>
+          <h3 className="font-poppins font-medium flex text-[18px] text-[var(--title)]">Alert For Data Not Coming </h3>
         </div>
         <div className="w-full rounded-xl !border !border-[var(--form-border)] px-2 pb-1 mt-1 custom-scrollbar" style={{ maxHeight: "calc(100vh - 120px)", overflowY: "auto" }}>
           <div className="sticky top-0 bg-[var(--bg-main-container)] z-10 grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
@@ -1578,18 +1582,18 @@ disabled:opacity-50"
             <div className=" ">
               <label className="text-[14px] text-[var(--text-color)]">Select Line</label>
               <Select
-                formatOptionLabel={formatOptionLabel}
-                styles={selectStyles}
                 name="line"
                 value={
                   selectedVlaues.line !== "" &&
-                  millOptionList.filter((val) => val.value === selectedVlaues.line)
+                  millOptionList.filter((val) => val.value === selectedVlaues.line
+                  )
                 }
                 options={millOptionList}
                 className="basic-multi-select"
                 classNamePrefix="select"
                 onChange={(e) => handleChangeSelect(e, "line")}
                 isClearable={true}
+                styles={selectStyles}
               />
             </div>
 
