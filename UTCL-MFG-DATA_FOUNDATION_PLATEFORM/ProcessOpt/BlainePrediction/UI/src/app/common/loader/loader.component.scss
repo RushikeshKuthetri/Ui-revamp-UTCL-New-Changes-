@@ -177,69 +177,109 @@
 //     height: 400px;
 //   }
 
+/* =========================================
+   Screen Loader — Angular Component Styles
+   ========================================= */
 
+/* Animations */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
+@keyframes tail-pulse {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.7; }
+}
+
+@keyframes pulse-expand {
+  0%   { transform: scale(0.9); opacity: 0; }
+  40%  { opacity: 1; }
+  100% { transform: scale(1.08); opacity: 0; }
+}
+
+/* Overlay */
 .loader-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  inset: 0;
   z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-.loader-box {
+/* Content wrapper */
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem; /* gap-5 */
+}
+
+/* Ring wrapper */
+.loader-ring-wrapper {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
+}
+
+/* Pulse rings */
+.pulse-ring {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.pulse-ring-1 {
+  inset: -10px;
+  border: 1.5px solid rgba(242, 193, 140, 0.55);
+  animation: pulse-expand 2s infinite;
+}
+
+.pulse-ring-2 {
+  inset: -22px;
+  border: 1px solid rgba(242, 193, 140, 0.30);
+  animation: pulse-expand 2s infinite 0.7s;
+}
+
+/* Spinning SVG ring */
+.ring-spin {
+  display: block;
+  width: 140px;
+  height: 140px;
+  animation: spin 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Arc tail pulse */
+.arc-tail {
+  animation: tail-pulse 1.6s ease-in-out infinite;
+}
+
+/* Logo container */
+.logo-wrapper {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Spinner Circle */
-.spinner {
-  position: absolute;
-  width: 110px;
-  height: 110px;
+.logo-circle {
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
-
-  /* 🔥 Smooth gradient arc */
-  background: conic-gradient(from 0deg,
-      rgba(255, 165, 0, 0) 0deg,
-      orange 40deg,
-      red 120deg,
-      rgba(255, 0, 0, 0) 180deg);
-
-  /* Circle hollow */
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), black 0);
-  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), black 0);
-
-  /* 🔥 Smooth edges */
-  filter: blur(0.8px);
-
-  animation: spin 1s linear infinite;
+  background-color: #FE8F12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Center Logo */
-.loader-logo {
-  width: 100px;
-  height: 100px;
+/* Logo image — w-17 (Tailwind) = 4.25rem = 68px */
+.logo-img {
+  width: 80px;
+  height: 58px;
   object-fit: contain;
-  z-index: 2;
-}
-
-/* Animation */
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
+  position: relative;
+  z-index: 10;
 }

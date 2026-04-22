@@ -183,7 +183,7 @@ export const ScreenLoader = () => {
             {/* Logo */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-[88px] h-[88px] rounded-full flex items-center justify-center bg-[#FE8F12]">
-                <img src={loader} alt="logo" className="w-16 h-[50px] object-contain relative z-10" />
+                <img src={loader} alt="logo" className="w-17 h-[51px] object-contain relative z-10" />
               </div>
             </div>
 
