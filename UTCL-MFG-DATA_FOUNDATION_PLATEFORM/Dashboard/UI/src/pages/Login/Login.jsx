@@ -48,7 +48,7 @@
 // import "./Login.css";
 import logo from "../../img/utclicon.png";
 // import bgImage from "../../img/bgImage.png";
-import login1 from "../../img/login1.png";
+import login3 from "../../img/login3.png";
 import loader from "../../img/loader.png";
 import { useSelector } from "react-redux";
 import { Alert, SignInButton, SignOutButton } from "../../components";
@@ -67,47 +67,75 @@ export const Login = () => {
   return (
     <>
       {sessionStorage.getItem("SLOG") !== "SLOG" ? (
+        //           <div
+        //   className="fixed inset-0 w-screen h-screen flex items-center justify-end bg-no-repeat bg-cover bg-center"
+        //   style={{ backgroundImage: `url(${login1})` }}
+        // >
+
+        //   {/* <div className="fixed top-[55%] right-[12%]">
+        //                           {userStatus.error && <Alert errMsg={userStatus.error} />}
+        //                           <div className="right">
+        //                             {isAuthenticated ? <SignOutButton /> : <SignInButton />}
+        //                           </div>
+        //                         </div> */}
+        //           {/* <div className="absolute inset-0 backdrop-blur-sm"></div> */}
+        //                     {/* <div
+        //                       className="absolute 
+        //                        right-[4%] sm:right-[5%] md:right-[6%] lg:right-[8%] xl:right-[5.3%] 2xl:right-[6.4%]
+        //                        top-1/2 -translate-y-1/2"
+        //                     >
+        //                       <div
+        //                         className=" bg-[var(--bg-header)] rounded-2xl shadow-xl
+        //             shadow-inner  mb-3 
+        //             shadow-[inset_0_0_10px_rgba(0,0,0,0.4)]
+        //             px-6 sm:px-8 md:px-10 lg:px-12 xl:px-14
+        //             py-8 sm:py-10 md:py-12 lg:py-14 xl:py-6 2xl:py-14 
+        //                          w-[85vw] 
+        //                          sm:w-[360px] 
+        //                          md:w-[400px] 
+        //                          lg:w-[400px] 
+        //                          xl:w-[380px] 
+        //                          2xl:w-[540px]
+
+        //                          max-w-[90%]"
+        //                       >
+        //                         <div className="flex justify-center">
+        //                           <img
+        //                             src={loader}
+        //                             alt="logo_at_login"
+        //                             className="h-8 mb-3 sm:h-10 md:h-12 lg:h-14 xl:h-28 2xl:h-36 object-contain"
+        //                           />
+        //                         </div>
+
+        //                         <div className="flex justify-center">
+        //                           {userStatus.error && <Alert errMsg={userStatus.error} />}
+        //                           <div className="right">
+        //                             {isAuthenticated ? <SignOutButton /> : <SignInButton />}
+        //                           </div>
+        //                         </div>
+        //                       </div>
+        //                     </div> */}
+        //         </div>
+
+        // Try and error
+        <div
+          className="fixed inset-0 w-screen h-screen bg-no-repeat bg-cover bg-center"
+          style={{ backgroundImage: `url(${login3})` }}
+        >
           <div
-  className="fixed inset-0 w-screen h-screen flex items-center justify-end bg-no-repeat bg-cover bg-center"
-  style={{ backgroundImage: `url(${login1})` }}
->
-          {/* <div className="absolute inset-0 backdrop-blur-sm"></div> */}
-                    <div
-                      className="absolute 
-                       right-[4%] sm:right-[5%] md:right-[6%] lg:right-[8%] xl:right-[5.3%] 2xl:right-[6.4%]
-                       top-1/2 -translate-y-1/2"
-                    >
-                      <div
-                        className=" bg-[var(--bg-header)] rounded-2xl shadow-xl
-            shadow-inner  mb-3 
-            shadow-[inset_0_0_10px_rgba(0,0,0,0.4)]
-            px-6 sm:px-8 md:px-10 lg:px-12 xl:px-14
-            py-8 sm:py-10 md:py-12 lg:py-14 xl:py-6 2xl:py-14 
-                         w-[85vw] 
-                         sm:w-[360px] 
-                         md:w-[400px] 
-                         lg:w-[400px] 
-                         xl:w-[380px] 
-                         2xl:w-[540px]
-          
-                         max-w-[90%]"
-                      >
-                        <div className="flex justify-center">
-                          <img
-                            src={loader}
-                            alt="logo_at_login"
-                            className="h-8 mb-3 sm:h-10 md:h-12 lg:h-14 xl:h-28 2xl:h-36 object-contain"
-                          />
-                        </div>
-          
-                        <div className="flex justify-center">
-                          {userStatus.error && <Alert errMsg={userStatus.error} />}
-                          <div className="right">
-                            {isAuthenticated ? <SignOutButton /> : <SignInButton />}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+            className="fixed flex flex-col items-center justify-center
+           md:right-[8vw] lg:right-[12.5vw] xl:right-[12.5vw] 2xl:right-[15vw]
+           top-[55vh]"
+          // style={{
+          //   top: "60%",
+          //   transform: "translateY(-50%)",
+          // }}
+          >
+            {userStatus.error && <Alert errMsg={userStatus.error} />}
+            <div className="right">
+              {isAuthenticated ? <SignOutButton /> : <SignInButton />}
+            </div>
+          </div>
         </div>
       ) : (
         <></>
