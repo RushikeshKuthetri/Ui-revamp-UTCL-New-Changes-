@@ -400,11 +400,11 @@ export function Navbar() {
         >
           <div className="flex gap-2">
             <img src={ultraLogo} className="h-[50px] w-[50px]" alt="logo1" />
-            <img src={loader} className="h-[45px] w-[80px] align-center" alt="logo2" />
+            <img src={loader} className="h-[45px] w-[95px] mt-0.5 align-center" alt="logo2" />
           </div>
         </Link>
-        <h1 className=" -ml-2 text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
-          UltraTech's Unified OT Data Platform
+        <h1 className=" -ml-2  text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
+            UltraTech's <span className="italic mx-1">Own</span> Purpose-built Historian
         </h1>
       </div>
       {/* Links  */}

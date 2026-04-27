@@ -245,9 +245,9 @@ const Navbar = () => {
                   <img src={loader} className="h-[45px] w-[80px] align-center" alt="logo2" />
                 </Link>
               </div>
-              <h1 className="text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--text-color)] font-[600] tracking-tight text-center">
-                UltraTech's Unified OT Data Foundation
-              </h1>
+               <h1 className=" -ml-2 text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
+         UltraTech's <span className="italic mx-1">Own</span> Purpose-built Historian
+        </h1>
             </div>
             <div className="navbar-content-right ml-auto username">
               <div className="d-flex align-items-center ml-auto">

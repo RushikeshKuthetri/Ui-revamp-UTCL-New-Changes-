@@ -275,7 +275,7 @@ export const NavigationBar = () => {
             <img src={LOGO} className="h-[50px] w-[50px]" alt="logo" />
           </Link>
           <Link to="/templates">
-            <img src={loader} className="h-[45px] w-[80px] align-center" alt="logo2" />
+            <img src={loader} className="h-[45px] w-[95px] align-center" alt="logo2" />
           </Link>
         </div>
 
@@ -283,7 +283,7 @@ export const NavigationBar = () => {
           {RouteHeadings[state.pathname]}
         </h1> */}
         <h1 className=" -ml-2 text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
-          UltraTech's Unified OT Data Platform
+     UltraTech's <span className="italic mx-1">Own</span> Purpose-built Historian
         </h1>
       </div>
 

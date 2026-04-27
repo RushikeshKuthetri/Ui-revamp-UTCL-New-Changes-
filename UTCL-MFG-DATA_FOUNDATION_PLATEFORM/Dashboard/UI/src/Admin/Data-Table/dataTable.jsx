@@ -923,7 +923,7 @@ const DataTable = () => {
         toggle={closeModal}
         backdrop="static"
         returnFocusAfterClose
-        contentClassName="!max-w-[95vw] !py-2  !max-h-[80vh]  !bg-[var(--card-bg)] !rounded-xl !shadow-xl !border !border-[var(--form-border)]"
+        contentClassName="!max-w-[95vw] !py-2  !max-h-[90vh]  !bg-[var(--card-bg)] !rounded-xl !shadow-xl !border !border-[var(--form-border)]"
       >
         <ModalHeader toggle={closeModal} className="!p-0 !border-none ml-3">
           <div className="flex justify-between items-center w-[450px]  ">
@@ -1104,6 +1104,7 @@ const DataTable = () => {
                     closeMenuOnSelect={false}
                     hideSelectedOptions={false}
                     components={{ Option: InputOption }}
+
                   />
                 </div>
               </div>

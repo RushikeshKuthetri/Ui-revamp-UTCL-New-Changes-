@@ -116,12 +116,12 @@ export function Navbar() {
             <img src={adityabirlalogo} className="logo w-[50px] h-[50px]" alt="logo" />
           </button>
           <button>
-            <img src={loader} className="h-[45px] w-[80px] align-center mb-1.5" alt="logo2" />
+            <img src={loader} className="h-[45px] w-[95px] mb-1 align-center" alt="logo2" />
           </button>
         </div>
 
         <h1 className="ml-2 text-sm sm:text-md md:text-lg lg:text-lg xl:text-xl text-[var(--header-text-color)] font-medium font-poppins tracking-tight text-center">
-          UltraTech's Unified OT Data Platform
+            UltraTech's <span className="italic mx-1">Own</span> Purpose-built Historian
         </h1>
 
       </div>
