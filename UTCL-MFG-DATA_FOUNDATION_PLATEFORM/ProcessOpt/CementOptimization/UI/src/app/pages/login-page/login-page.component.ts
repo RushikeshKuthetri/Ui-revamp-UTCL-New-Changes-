@@ -32,7 +32,7 @@ export class LoginPageComponent {
 
     this.imagePath={
       logo:'assets/loader.png',
-      img:'assets/login1.png',
+      img:'assets/login3.png',
     }
   } 
 
